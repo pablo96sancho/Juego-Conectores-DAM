@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connector Poker</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Connector Poker</h1>
+    <p>Aprende a identificar los conectores de un ordenador jugando al poker.</p>
+  </header>
+  <main>
+    <section aria-labelledby="t-partida">
+      <h2 id="t-partida">Partida contra 2 bots</h2>
+      <button id="nueva" type="button">Nueva partida</button>
+      <div id="mesa" hidden>
+        <p id="info" class="info"></p>
+        <ul id="jugadores" class="jugadores" aria-label="Jugadores"></ul>
+        <h3>Tu mano</h3>
+        <ul id="mano-juego" class="mano" aria-label="Tu mano"></ul>
+        <div id="acciones" class="acciones"></div>
+        <div id="panel" class="panel"></div>
+        <h3>Registro</h3>
+        <ol id="registro" class="registro" aria-live="polite"></ol>
+      </div>
+    </section>
+
+    <details>
+      <summary>Modo práctica</summary>
+      <p>Se reparten 5 cartas y se muestra qué mano forman.</p>
+      <button id="repartir" type="button">Repartir 5 cartas</button>
+      <ul id="mano" class="mano" aria-label="Mano de práctica"></ul>
+      <p id="resultado" role="status"></p>
+    </details>
+
+    <details>
+      <summary>Ver los 20 conectores</summary>
+      <p id="estado" role="status">Cargando conectores…</p>
+      <ul id="lista" class="lista"></ul>
+    </details>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

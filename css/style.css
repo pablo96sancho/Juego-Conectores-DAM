@@ -1,0 +1,138 @@
+:root {
+  --fondo: #14301f;
+  --panel: #f7f4ea;
+  --texto: #1b1b1b;
+  --acento: #b3261e;
+  --interno: #1b5e8a;
+  --externo: #7a4a00;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--fondo);
+  color: #fff;
+  line-height: 1.5;
+}
+
+header, main { max-width: 60rem; margin: 0 auto; padding: 1rem; }
+
+.lista {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+
+.lista li {
+  background: var(--panel);
+  color: var(--texto);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.lista h3 { margin: 0 0 0.25rem; }
+
+.etiqueta {
+  display: inline-block;
+  padding: 0 0.5rem;
+  border-radius: 1rem;
+  color: #fff;
+  font-size: 0.8rem;
+}
+.etiqueta.interno { background: var(--interno); }
+.etiqueta.externo { background: var(--externo); }
+
+:focus-visible { outline: 3px solid #ffd54f; outline-offset: 2px; }
+
+button {
+  font: inherit;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: #ffd54f;
+  color: #1b1b1b;
+  cursor: pointer;
+}
+
+.mano {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media (max-width: 40rem) {
+  .mano { grid-template-columns: repeat(2, 1fr); }
+}
+
+.carta {
+  background: var(--panel);
+  color: var(--texto);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  min-height: 7rem;
+}
+
+.carta .titulo { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+.carta.especial { border: 3px solid var(--acento); }
+
+details { margin-top: 1.5rem; }
+summary { cursor: pointer; }
+
+.carta img { width: 100%; height: auto; display: block; margin-top: 0.25rem; }
+
+/* Partida */
+.info { font-weight: bold; }
+
+.jugadores {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.jugadores li {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.jugadores li.turno { outline: 2px solid #ffd54f; }
+.jugadores li.fuera { opacity: 0.6; }
+
+.acciones { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; align-items: center; }
+button.secundario { background: #fff; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.carta-boton {
+  all: unset;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 7rem;
+  cursor: pointer;
+}
+.carta-boton:focus-visible { outline: 3px solid var(--interno); outline-offset: 4px; border-radius: 0.5rem; }
+.carta.seleccionada { box-shadow: 0 0 0 4px #ffd54f; transform: translateY(-6px); }
+.carta.seleccionada .titulo::after { content: ' · se cambia'; text-transform: none; }
+
+.panel {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+.panel:empty { display: none; }
+.panel fieldset { border: 0; padding: 0; margin: 0 0 1rem; }
+.panel legend { font-weight: bold; margin-bottom: 0.25rem; }
+.panel label { display: block; padding: 0.25rem 0; }
+.acierto { color: #a5d6a7; }
+.fallo { color: #ef9a9a; }
+
+.registro { max-height: 14rem; overflow-y: auto; padding-left: 1.25rem; }
