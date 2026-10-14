@@ -195,3 +195,5 @@ dialog :focus-visible { outline-color: var(--interno); }
   border: 3px solid #fff;
 }
 .carta.dorso .titulo { font-size: 2rem; }
+
+.aviso-regla { background: #fff; border-left: 4px solid #b3261e; padding: 0.5rem 0.75rem; margin: 0.5rem 0; border-radius: 0.25rem; }
