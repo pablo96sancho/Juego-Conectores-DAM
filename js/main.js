@@ -112,7 +112,6 @@ function guardarPuntuacion(g) {
   g.saved = true;
   const ranking = addScore(store, { name: g.players[0].name, chips: g.players[0].chips, hands: g.handNumber });
   renderRanking(ranking.find(e => e.name === g.players[0].name && e.chips === g.players[0].chips)?.date);
-  $('ranking').closest('details').open = true;
 }
 
 // Qué mano tienes y qué tendrás que justificar si usas una carta especial
@@ -141,7 +140,7 @@ function nuevaPartida() {
   game = createGame({ connectors: conectoresJuego, humanName: nombre || 'Jugador' });
   seleccion.clear();
   runBots(game);
-  $('mesa').hidden = false;
+  mostrarVista('juego');
   render(true);
 }
 
@@ -306,6 +305,52 @@ function render(enfocar) {
   }
 }
 
+// ---------- Navegación entre vistas y reglas ----------
+const VISTAS = ['inicio', 'juego', 'ranking', 'practica', 'conectores'];
+
+function mostrarVista(nombre) {
+  for (const v of VISTAS) $(`vista-${v}`).hidden = v !== nombre;
+  if (nombre === 'ranking') renderRanking();
+  window.scrollTo(0, 0);
+  $(`vista-${nombre}`).querySelector('h2').focus();
+}
+
+// Las reglas se abren solas antes de la primera partida (solo mientras la página siga abierta)
+let reglasVistas = false;
+let empezarAlCerrar = false;
+
+function abrirReglas(paraJugar) {
+  empezarAlCerrar = paraJugar;
+  $('reglas-ok').hidden = !paraJugar;
+  $('reglas-cerrar').hidden = paraJugar;
+  reglasVistas = true;
+  $('reglas').showModal();
+  $('reglas').scrollTop = 0;
+}
+
+document.querySelectorAll('[data-vista]').forEach(b =>
+  b.addEventListener('click', () => mostrarVista(b.dataset.vista)));
+$('jugar').addEventListener('click', () => (reglasVistas ? nuevaPartida() : abrirReglas(true)));
+$('ver-reglas').addEventListener('click', () => abrirReglas(false));
+$('abrir-reglas').addEventListener('click', () => abrirReglas(false));
+$('reglas-cerrar').addEventListener('click', () => $('reglas').close());
+$('reglas-ok').addEventListener('click', () => {
+  const empezar = empezarAlCerrar;
+  $('reglas').close();
+  if (empezar) nuevaPartida();
+});
+$('reglas').addEventListener('close', () => { empezarAlCerrar = false; });
+$('salir').addEventListener('click', () => {
+  const enCurso = game && game.phase !== 'gameOver';
+  if (enCurso && !confirm('¿Abandonar la partida en curso? No se guardará en el ranking.')) return;
+  mostrarVista('inicio');
+});
+$('borrar-ranking').addEventListener('click', () => {
+  const store = almacen();
+  if (store) clearRanking(store);
+  renderRanking();
+});
+
 try {
   const conectores = await loadConnectors();
   conectoresJuego = conectores;
@@ -314,14 +359,11 @@ try {
   document.getElementById('estado').textContent =
     `${conectores.length} conectores cargados (${internos} internos, ${conectores.length - internos} externos).`;
   document.getElementById('repartir').addEventListener('click', () => repartir(conectores));
-  $('nueva').addEventListener('click', nuevaPartida);
-  $('borrar-ranking').addEventListener('click', () => {
-    const store = almacen();
-    if (store) clearRanking(store);
-    renderRanking();
-  });
+  $('jugar').disabled = false;
+  $('aviso').textContent = '';
   renderRanking();
 } catch (error) {
+  $('aviso').textContent = 'No se pudieron cargar los conectores. ¿Estás usando un servidor local?';
   document.getElementById('estado').textContent =
     'No se pudieron cargar los conectores. ¿Estás usando un servidor local?';
   console.error(error);
