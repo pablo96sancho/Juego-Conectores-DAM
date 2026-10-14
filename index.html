@@ -44,9 +44,11 @@
       <div id="mesa">
         <p id="info" class="info"></p>
         <ul id="jugadores" class="jugadores" aria-label="Jugadores"></ul>
-        <h3>Tu mano</h3>
+        <h3>Mesa</h3>
+        <ul id="mesa-cartas" class="mano mesa" aria-label="Cartas de la mesa"></ul>
+        <h3>Tus cartas</h3>
         <p id="pista" class="pista" role="status"></p>
-        <ul id="mano-juego" class="mano" aria-label="Tu mano"></ul>
+        <ul id="mano-juego" class="mano dos" aria-label="Tus cartas"></ul>
         <div id="acciones" class="acciones"></div>
         <div id="panel" class="panel"></div>
         <h3>Registro</h3>
@@ -72,7 +74,7 @@
         <h2 id="t-practica" tabindex="-1">Modo práctica</h2>
         <button type="button" class="secundario" data-vista="inicio">← Menú</button>
       </div>
-      <p>Se reparten 5 cartas y se muestra qué mano forman. Sin apuestas ni retos.</p>
+      <p>Se reparten 5 cartas y se muestra qué mano forman: para practicar cómo se agrupan. Sin apuestas ni retos.</p>
       <button id="repartir" type="button">Repartir 5 cartas</button>
       <ul id="mano" class="mano" aria-label="Mano de práctica"></ul>
       <p id="resultado" role="status"></p>
@@ -98,14 +100,16 @@
     <p>Cada uno de los 20 conectores (10 internos y 10 externos) tiene 4 cartas: <strong>Foto</strong>, <strong>Nombre</strong>, <strong>Función</strong> y <strong>Ubicación</strong>. Además hay cartas <strong>Trampa</strong> y comodines.</p>
 
     <h3>Una mano, paso a paso</h3>
+    <p>Se juega al estilo <strong>Texas Hold'em</strong>: tienes <strong>2 cartas</strong> propias y hay <strong>5 cartas comunes</strong> en la mesa. Tu mano es la mejor combinación de 5 cartas entre las 7.</p>
     <ol>
-      <li>Todos pagan <strong>1 ficha</strong> de ante y reciben <strong>5 cartas</strong>. Empiezas con 20 fichas.</li>
-      <li><strong>Primera ronda de apuestas:</strong> pasar, apostar (1 o 2 fichas), igualar o retirarse. Solo puedes subir una vez por ronda.</li>
-      <li><strong>Cambio de cartas:</strong> marca hasta 3 cartas y cámbialas por otras del mazo.</li>
-      <li><strong>Segunda ronda de apuestas.</strong></li>
+      <li>Todos pagan <strong>1 ficha</strong> de ante y reciben <strong>2 cartas</strong>. Empiezas con 20 fichas.</li>
+      <li><strong>Antes del flop:</strong> primera ronda de apuestas con solo tus 2 cartas.</li>
+      <li><strong>Flop:</strong> se descubren 3 cartas de la mesa y hay otra ronda de apuestas.</li>
+      <li><strong>Turn:</strong> se descubre la 4.ª carta y otra ronda de apuestas.</li>
+      <li><strong>River:</strong> se descubre la 5.ª carta y última ronda de apuestas.</li>
       <li><strong>Showdown:</strong> se comparan las manos, pero quien tiene la mejor debe superar un reto antes de cobrar el bote.</li>
     </ol>
-    <p>Si todos se retiran menos uno, ese jugador se lleva el bote directamente.</p>
+    <p>En cada ronda puedes <strong>pasar</strong>, <strong>apostar</strong> (1 o 2 fichas), <strong>igualar</strong> o <strong>retirarte</strong>. Solo puedes subir una vez por ronda. Si todos se retiran menos uno, ese jugador se lleva el bote directamente.</p>
 
     <h3>Las manos</h3>
     <p>Se agrupan las cartas por conector, sea cual sea su tipo. Por ejemplo, la <em>Foto</em> y el <em>Nombre</em> de HDMI forman una pareja. De menor a mayor:</p>

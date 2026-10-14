@@ -113,17 +113,6 @@ summary { cursor: pointer; }
 button.secundario { background: #fff; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.carta-boton {
-  all: unset;
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  min-height: 7rem;
-  cursor: pointer;
-}
-.carta-boton:focus-visible { outline: 3px solid var(--interno); outline-offset: 4px; border-radius: 0.5rem; }
-.carta.seleccionada { box-shadow: 0 0 0 4px #ffd54f; transform: translateY(-6px); }
-.carta.seleccionada .titulo::after { content: ' · se cambia'; text-transform: none; }
 
 .panel {
   background: rgba(255, 255, 255, 0.1);
@@ -193,3 +182,16 @@ dialog :focus-visible { outline-color: var(--interno); }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* Hold'em: mesa y cartas propias */
+.mano.dos { grid-template-columns: repeat(2, minmax(0, 12rem)); }
+.mesa { margin-bottom: 0.5rem; }
+.carta.dorso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(45deg, #1b5e8a, #1b5e8a 8px, #174e74 8px, #174e74 16px);
+  color: #fff;
+  border: 3px solid #fff;
+}
+.carta.dorso .titulo { font-size: 2rem; }

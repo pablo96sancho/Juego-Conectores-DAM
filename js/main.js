@@ -1,10 +1,10 @@
 // Arranque y conexión con la UI
 import { loadConnectors, buildDeck, shuffle, deal, describeCard } from './deck.js';
-import { evaluateHand } from './hands.js';
+import { evaluateHand, bestHand } from './hands.js';
 import { loadRanking, addScore, clearRanking } from './ranking.js';
 import {
-  createGame, applyBetting, applyDraw, submitChallenge, nextHand, runBots,
-  legalActions, MAX_DISCARD, FAIL_PENALTY,
+  createGame, applyBetting, submitChallenge, nextHand, runBots,
+  legalActions, visibleBoard, STAGES, BOARD_SIZE, FAIL_PENALTY,
 } from './game.js';
 
 function pintarLista(conectores) {
@@ -80,7 +80,6 @@ function el(tag, attrs = {}, ...children) {
 
 let game = null;
 let conectoresJuego = [];
-const seleccion = new Set();
 
 // localStorage puede no estar disponible (modo privado, datos bloqueados)
 function almacen() {
@@ -118,7 +117,7 @@ function guardarPuntuacion(g) {
 function textoPista(g) {
   const yo = g.players[0];
   if (yo.out || yo.folded) return '';
-  const ev = evaluateHand(yo.hand);
+  const ev = bestHand([...yo.hand, ...visibleBoard(g)]);
   const nombre = id => g.connectors.find(c => c.id === id).nombre;
   const principal = ev.rank > 0 ? ` de ${nombre(ev.mainConnectorId)}` : '';
   let texto = `Ahora mismo tienes: ${ev.rankName}${principal}.`;
@@ -138,7 +137,6 @@ function textoPista(g) {
 function nuevaPartida() {
   const nombre = $('nombre').value.trim();
   game = createGame({ connectors: conectoresJuego, humanName: nombre || 'Jugador' });
-  seleccion.clear();
   runBots(game);
   mostrarVista('juego');
   render(true);
@@ -152,32 +150,27 @@ function actuar(accion) {
   } catch (error) {
     console.error(error);
   }
-  seleccion.clear();
   render(true);
 }
 
-function crearCarta(carta, seleccionable, indice) {
+function crearCarta(carta) {
   const { title, text, image } = describeCard(carta, conectoresJuego);
-  const contenido = [el('div', { class: 'titulo' }, title)];
-  if (image) contenido.push(el('img', { src: image.src, alt: image.alt }));
-  else contenido.push(el('div', {}, text));
-  const li = el('li', { class: carta.kind === 'conector' ? 'carta' : 'carta especial' });
-  if (!seleccionable) {
-    li.append(...contenido);
-    return li;
-  }
-  const boton = el('button', {
-    type: 'button', class: 'carta-boton', 'aria-pressed': String(seleccion.has(indice)),
-    onclick: () => {
-      if (seleccion.has(indice)) seleccion.delete(indice);
-      else if (seleccion.size < MAX_DISCARD) seleccion.add(indice);
-      render(false);
-      document.querySelectorAll('#mano-juego .carta-boton')[indice].focus();
-    },
-  }, ...contenido);
-  li.classList.toggle('seleccionada', seleccion.has(indice));
-  li.append(boton);
+  const li = el('li', { class: carta.kind === 'conector' ? 'carta' : 'carta especial' },
+    el('div', { class: 'titulo' }, title));
+  if (image) li.append(el('img', { src: image.src, alt: image.alt }));
+  else li.append(el('div', {}, text));
   return li;
+}
+
+// Hueco de una carta de la mesa que todavía no se ha descubierto
+function crearDorso() {
+  return el('li', { class: 'carta dorso', 'aria-label': 'Carta de la mesa sin descubrir' }, el('div', { class: 'titulo', 'aria-hidden': 'true' }, '?'));
+}
+
+// Nombre corto de una carta para listarla en el resultado
+function etiquetaCarta(carta) {
+  const { title, text, image } = describeCard(carta, conectoresJuego);
+  return `${title}: ${text || image.alt.replace('Foto de un conector ', '')}`;
 }
 
 function renderJugadores(g) {
@@ -185,7 +178,7 @@ function renderJugadores(g) {
   ul.replaceChildren();
   for (const p of g.players) {
     const estado = p.out ? 'eliminado' : p.folded ? 'retirado' : 'en mano';
-    const turno = g.turn === p.id && ['betting1', 'betting2', 'draw'].includes(g.phase) && !p.folded;
+    const turno = g.turn === p.id && g.phase === 'betting' && !p.folded;
     ul.append(el('li', { class: `${turno ? 'turno' : ''} ${p.out || p.folded ? 'fuera' : ''}` },
       `${p.name}: ${p.chips} fichas (${estado})${turno ? ' ← turno' : ''}`));
   }
@@ -197,10 +190,9 @@ function renderAcciones(g) {
   const yo = g.players[0];
   const miTurno = g.turn === 0 && !yo.folded && !yo.out;
 
-  if ((g.phase === 'betting1' || g.phase === 'betting2') && miTurno) {
+  if (g.phase === 'betting' && miTurno) {
     const legal = legalActions(g, 0);
-    const ronda = g.phase === 'betting1' ? 'primera' : 'segunda';
-    cont.append(el('span', {}, `Ronda de apuestas (${ronda}). ${legal.toCall > 0 ? `Debes igualar ${legal.toCall}.` : 'Nadie ha apostado.'}`));
+    cont.append(el('span', {}, `Apuestas: ${STAGES[g.stage].toLowerCase()}. ${legal.toCall > 0 ? `Debes igualar ${legal.toCall}.` : 'Nadie ha apostado.'}`));
     if (legal.canCheck) cont.append(el('button', { type: 'button', onclick: () => actuar(() => applyBetting(g, 0, { type: 'check' })) }, 'Pasar'));
     else cont.append(el('button', { type: 'button', onclick: () => actuar(() => applyBetting(g, 0, { type: 'call' })) }, `Igualar (${legal.toCall})`));
     for (let a = 1; a <= legal.maxBet; a++) {
@@ -208,16 +200,9 @@ function renderAcciones(g) {
         `${legal.toCall > 0 ? 'Subir' : 'Apostar'} ${a}`));
     }
     if (!legal.canCheck) cont.append(el('button', { type: 'button', class: 'secundario', onclick: () => actuar(() => applyBetting(g, 0, { type: 'fold' })) }, 'Retirarse'));
-  } else if (g.phase === 'draw' && miTurno) {
-    const n = seleccion.size;
-    cont.append(
-      el('span', {}, `Cambio de cartas: marca hasta ${MAX_DISCARD} cartas para cambiarlas.`),
-      el('button', { type: 'button', onclick: () => actuar(() => applyDraw(g, 0, [...seleccion])) },
-        n > 0 ? `Cambiar ${n} carta${n > 1 ? 's' : ''}` : 'No cambiar'),
-    );
   } else if (g.phase === 'handOver') {
     const ultima = g.handNumber >= g.maxHands;
-    cont.append(el('button', { type: 'button', onclick: () => { nextHand(g); runBots(g); seleccion.clear(); render(true); } },
+    cont.append(el('button', { type: 'button', onclick: () => { nextHand(g); runBots(g); render(true); } },
       ultima ? 'Ver resultado final' : 'Siguiente mano'));
   } else if (g.phase === 'gameOver') {
     cont.append(el('button', { type: 'button', onclick: nuevaPartida }, 'Nueva partida'));
@@ -250,7 +235,10 @@ function renderReto(g, panel) {
 function renderResultado(g, panel) {
   const r = g.result;
   panel.append(el('h3', {}, 'Resultado de la mano'));
-  for (const rev of g.reveal ?? []) panel.append(el('p', {}, `${rev.name}: ${rev.label}`));
+  for (const rev of g.reveal ?? []) {
+    panel.append(el('p', {}, el('strong', {}, `${rev.name}: ${rev.label}`),
+      el('br'), `Sus cartas: ${rev.hand.map(etiquetaCarta).join(' · ')}`));
+  }
   const quien = r.winners.map(id => g.players[id].name).join(' y ');
   const texto = r.carried ? `Nadie superó el reto: el bote (${g.pot}) pasa a la mano siguiente.`
     : r.byFold ? `${quien} gana ${r.amount} fichas: los demás se retiraron.`
@@ -275,13 +263,17 @@ function renderFinal(g, panel) {
 
 function render(enfocar) {
   const g = game;
-  $('info').textContent = `Mano ${g.handNumber} de ${g.maxHands} · Bote: ${g.pot} fichas`;
+  $('info').textContent = `Mano ${g.handNumber} de ${g.maxHands} · ${g.phase === 'betting' ? STAGES[g.stage] : 'Showdown'} · Bote: ${g.pot} fichas`;
   renderJugadores(g);
 
   const ul = $('mano-juego');
   ul.replaceChildren();
-  const elegir = g.phase === 'draw' && g.turn === 0 && !g.players[0].folded;
-  g.players[0].hand.forEach((carta, i) => ul.append(crearCarta(carta, elegir, i)));
+  g.players[0].hand.forEach(carta => ul.append(crearCarta(carta)));
+
+  const mesa = $('mesa-cartas');
+  mesa.replaceChildren();
+  const vistas = visibleBoard(g);
+  for (let i = 0; i < BOARD_SIZE; i++) mesa.append(vistas[i] ? crearCarta(vistas[i]) : crearDorso());
 
   $('pista').textContent = g.phase === 'gameOver' ? '' : textoPista(g);
 
