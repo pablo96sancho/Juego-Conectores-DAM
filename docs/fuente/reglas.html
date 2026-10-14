@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Connector Poker: manual de reglas</title>
+<style>
+@page { size: A4; margin: 16mm 15mm 18mm; @bottom-center { content: "Connector Poker · manual de reglas · " counter(page); font: 9pt sans-serif; color: #666; } }
+* { box-sizing: border-box; }
+body { font: 10.5pt/1.45 -apple-system, "Helvetica Neue", Arial, sans-serif; color: #1b1b1b; margin: 0; }
+h1 { font-size: 30pt; margin: 0; color: #14301f; }
+h2 { font-size: 15pt; color: #14301f; border-bottom: 2px solid #14301f; padding-bottom: 2pt; margin: 16pt 0 6pt; }
+h3 { font-size: 11.5pt; margin: 10pt 0 3pt; color: #1b5e20; }
+p { margin: 4pt 0; }
+ul, ol { margin: 4pt 0; padding-left: 18pt; }
+li { margin: 2pt 0; }
+.portada { background: #14301f; color: #fff; padding: 16pt 18pt; border-radius: 8pt; }
+.portada h1 { color: #fff; }
+.portada p { color: #e8f5e9; margin: 4pt 0 0; font-size: 12pt; }
+.caja { background: #f7f4ea; border-left: 4px solid #b3261e; padding: 6pt 10pt; margin: 8pt 0; border-radius: 3pt; }
+.caja.verde { border-left-color: #1b5e20; }
+table { border-collapse: collapse; width: 100%; margin: 6pt 0; }
+th, td { border: 1px solid #999; padding: 3pt 6pt; text-align: left; vertical-align: top; }
+th { background: #14301f; color: #fff; font-size: 9.5pt; }
+.dos { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; }
+.carta { display: inline-block; border: 1px solid #555; border-radius: 3pt; padding: 0 5pt; background: #f7f4ea; font-size: 9pt; white-space: nowrap; }
+table.hoja { font-size: 8.3pt; }
+table.hoja td, table.hoja th { padding: 2pt 4pt; }
+table.hoja td.num { text-align: center; width: 16pt; }
+table.hoja td.foto { width: 54pt; padding: 1pt; }
+table.hoja img { width: 52pt; height: auto; display: block; }
+tr { break-inside: avoid; }
+h2, h3 { break-after: avoid; }
+table:not(.hoja) { break-inside: avoid; }
+.salto { break-before: page; }
+.peque { font-size: 9pt; color: #444; }
+</style></head><body>
+
+<div class="portada">
+  <h1>Connector Poker</h1>
+  <p>Manual de reglas de la versión física · 2 a 5 jugadores · unos 15 minutos</p>
+  <p>Aprende a identificar los conectores internos y externos de un ordenador jugando al poker.</p>
+</div>
+
+<h2>1. Objetivo</h2>
+<p>Gana la partida quien acabe con <strong>más fichas</strong>. Para cobrar un bote no basta con tener la mejor mano de cartas: hay que <strong>demostrar que sabes qué conectores tienes</strong>, para qué sirven y dónde van.</p>
+<p>Se juega al estilo <strong>Texas Hold'em</strong>: cada jugador tiene 2 cartas propias y hay 5 cartas comunes en la mesa. Son <strong>fichas de juego</strong>: no se apuesta dinero real.</p>
+
+<h2>2. Material</h2>
+<ul>
+  <li><strong>Baraja de 90 cartas:</strong>
+    <ul>
+      <li><strong>80 cartas de conector.</strong> Cada uno de los 20 conectores (10 internos y 10 externos) tiene 4 cartas, una de cada tipo: <span class="carta">Foto</span> <span class="carta">Nombre</span> <span class="carta">Función</span> <span class="carta">Ubicación</span>.</li>
+      <li><strong>6 cartas Trampa</strong>, cuya función es ambigua y encaja con dos conectores parecidos.</li>
+      <li><strong>2 comodines USB</strong> y <strong>2 comodines Anti-error</strong>.</li>
+    </ul></li>
+  <li><strong>Fichas:</strong> 20 por jugador, más un espacio central para el bote.</li>
+  <li><strong>Hoja del examinador</strong> (Anexo, al final de este manual): la usa quien pregunta durante el reto.</li>
+</ul>
+
+<h2>3. Cómo se juega una mano</h2>
+<ol>
+  <li><strong>Ante.</strong> Todos ponen 1 ficha en el bote.</li>
+  <li><strong>Reparto.</strong> Se barajan las 90 cartas. Cada jugador recibe 2 cartas boca abajo, que solo mira él. Se colocan 5 cartas boca abajo en el centro (la mesa).</li>
+  <li><strong>Antes del flop.</strong> Primera ronda de apuestas, con solo las 2 cartas propias.</li>
+  <li><strong>Flop.</strong> Se dan la vuelta 3 cartas de la mesa. Segunda ronda de apuestas.</li>
+  <li><strong>Turn.</strong> Se da la vuelta la 4.ª carta. Tercera ronda de apuestas.</li>
+  <li><strong>River.</strong> Se da la vuelta la 5.ª carta. Última ronda de apuestas.</li>
+  <li><strong>Showdown.</strong> Los jugadores que siguen en la mano enseñan sus cartas y se compara quién tiene la mejor. Quien la tiene debe superar el reto (apartado 6) para cobrar el bote.</li>
+</ol>
+<p>Tu mano es la <strong>mejor combinación de 5 cartas entre tus 7</strong> (tus 2 y las 5 de la mesa). Las cartas de la mesa son comunes: también ayudan a tus rivales.</p>
+
+<h3>Rondas de apuestas</h3>
+<p>Empieza el jugador que tiene el turno de salida y se sigue en el sentido del reloj. En cada ronda, cuando te toca, puedes:</p>
+<ul>
+  <li><strong>Pasar</strong>, si nadie ha apostado.</li>
+  <li><strong>Apostar</strong> 1 o 2 fichas, si nadie ha apostado. Si ya había una apuesta, <strong>subirla</strong> 1 o 2 fichas más.</li>
+  <li><strong>Igualar</strong> la apuesta puesta hasta ahora.</li>
+  <li><strong>Retirarte</strong>: dejas tus cartas boca abajo y pierdes lo que hayas puesto.</li>
+</ul>
+<div class="caja">
+  <strong>Reglas de las apuestas.</strong> Cada jugador puede apostar o subir <strong>una sola vez por ronda</strong>. Nadie puede apostar más fichas de las que puede igualar el jugador con menos fichas. La ronda termina cuando todos han actuado y han puesto lo mismo. Si todos se retiran menos uno, ese jugador se lleva el bote sin enseñar cartas ni hacer el reto.
+</div>
+<p>El turno de salida pasa al jugador de la izquierda en cada mano.</p>
+
+<h2 class="salto">4. Las manos</h2>
+<div class="caja">
+  <strong>La idea clave: los grupos son por conector.</strong> Forman grupo las cartas del <strong>mismo conector</strong> y de <strong>distinto tipo</strong>. Dos cartas del mismo tipo (por ejemplo, dos <span class="carta">Ubicación</span>) <strong>nunca</strong> son del mismo conector, porque cada conector tiene una sola carta de cada tipo.
+</div>
+<table>
+  <thead><tr><th>Cartas</th><th>¿Qué forman?</th><th>Por qué</th></tr></thead>
+  <tbody>
+    <tr><td><span class="carta">Foto HDMI</span> + <span class="carta">Nombre HDMI</span></td><td><strong>Pareja de HDMI</strong></td><td>Mismo conector, tipos distintos</td></tr>
+    <tr><td><span class="carta">Foto HDMI</span> + <span class="carta">Función "Vídeo y audio digital"</span></td><td><strong>Pareja de HDMI</strong></td><td>Mismo conector, aunque no se parezcan en nada</td></tr>
+    <tr><td><span class="carta">Ubicación VGA</span> + <span class="carta">Ubicación DVI</span></td><td><em>Nada</em> (dos cartas sueltas)</td><td>Mismo tipo: nunca son del mismo conector</td></tr>
+    <tr><td><span class="carta">Nombre HDMI</span> + <span class="carta">Nombre DisplayPort</span></td><td><em>Nada</em></td><td>Se parecen, pero son conectores distintos</td></tr>
+  </tbody>
+</table>
+<p class="peque">Cada conector tiene una ubicación <strong>propia y distinta</strong> (por ejemplo, "Panel trasero, salida de vídeo azul" es el VGA y la blanca es el DVI), así que cada carta de Ubicación describe dónde va <em>ese</em> conector.</p>
+<p>Las cartas se <strong>agrupan por conector, sea cual sea su tipo</strong>. Por ejemplo, la <span class="carta">Foto de HDMI</span> y la <span class="carta">Función "Vídeo y audio digital"</span> son una pareja de HDMI. Un conector no puede dar más de 4 cartas (una de cada tipo). De menor a mayor:</p>
+<table>
+  <thead><tr><th>Mano</th><th>Grupos</th><th>Ejemplo</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Carta alta</strong></td><td>1-1-1-1-1</td><td>Cinco conectores distintos</td></tr>
+    <tr><td><strong>Pareja</strong></td><td>2-1-1-1</td><td>Foto y Nombre de HDMI + 3 cartas sueltas</td></tr>
+    <tr><td><strong>Doble pareja</strong></td><td>2-2-1</td><td>Dos de HDMI + dos de RJ45 + 1 suelta</td></tr>
+    <tr><td><strong>Trío</strong></td><td>3-1-1</td><td>Foto, Nombre y Función de HDMI + 2 sueltas</td></tr>
+    <tr><td><strong>Full</strong></td><td>3-2</td><td>Tres de HDMI + dos de RJ45</td></tr>
+    <tr><td><strong>Póker</strong></td><td>4-1</td><td>Las cuatro cartas de HDMI + 1 suelta</td></tr>
+    <tr><td><strong>Escalera de energía</strong></td><td>5 Nombres</td><td>Las cartas <em>Nombre</em> de <strong>IEC C13/C14, ATX 24 pines, EPS 4+4 pines, PCIe 6+2 pines y SATA alimentación</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Desempates</h3>
+<p>Gana el rango más alto. Si hay empate, se compara el <strong>número del conector</strong> del grupo principal (el de la lista del anexo: gana el número más alto). En una doble pareja se compara primero la pareja mayor y luego la menor; en un full, primero el trío y luego la pareja. Después se comparan las cartas sueltas, de mayor a menor número. Si sigue el empate, se reparte el bote.</p>
+
+<h2>5. Cartas especiales</h2>
+<table>
+  <thead><tr><th>Carta</th><th>Qué hace</th><th>Para usarla, hay que saber…</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Trampa</strong><br><span class="peque">6 cartas</span></td><td>Cuenta como carta de <em>Función</em> de uno de los dos conectores de su par. Pares: HDMI/DisplayPort, VGA/DVI, USB-A/USB-C, SATA datos/M.2, ATX 24/EPS 4+4 y PCIe 6+2/EPS 4+4.</td><td>La <strong>diferencia entre los dos conectores</strong> del par.</td></tr>
+    <tr><td><strong>Comodín USB</strong><br><span class="peque">2 cartas</span></td><td>Sustituye a una carta de USB-A o de USB-C.</td><td>La <strong>velocidad</strong> de una versión de USB (ver anexo).</td></tr>
+    <tr><td><strong>Comodín Anti-error</strong><br><span class="peque">2 cartas</span></td><td>Sustituye a una carta de un conector <strong>interno</strong> (los 10 primeros de la lista).</td><td>Su <strong>característica anti-error</strong> (muesca, forma de L, clip…).</td></tr>
+  </tbody>
+</table>
+<div class="caja verde">
+  <ul>
+    <li>Solo cuenta <strong>una</strong> carta especial por mano. Las demás no valen nada.</li>
+    <li>Una carta especial solo se usa si <strong>mejora el rango</strong> de tu mano. No se usa solo para ganar un desempate.</li>
+    <li>Un comodín solo puede ocupar un tipo de carta (Foto, Nombre, Función o Ubicación) que ese conector no tenga ya en tu mano: un grupo nunca pasa de 4 cartas.</li>
+  </ul>
+</div>
+
+<h2>6. El reto del showdown</h2>
+<p>Quien tiene la mejor mano <strong>no cobra todavía</strong>: tiene que superar un reto. Esto es lo que convierte la partida en un repaso de los conectores.</p>
+<ol>
+  <li>El jugador a su <strong>izquierda</strong> actúa de <strong>examinador</strong> y coge la <strong>Hoja del examinador</strong> (Anexo).</li>
+  <li>El examinador hace <strong>2 preguntas en voz alta</strong> sobre el conector principal de la mano ganadora: <em>"¿Cuál es la función de X?"</em> y <em>"¿Dónde va X?"</em>. En una doble pareja o un full, la segunda pregunta es sobre el segundo grupo.</li>
+  <li>Si la mano usa una <strong>carta especial</strong>, hay una <strong>tercera pregunta</strong>: la diferencia entre los dos conectores de la Trampa, la velocidad de una versión de USB o la característica anti-error del conector que sustituye el comodín.</li>
+  <li>El ganador responde <strong>sin mirar la hoja</strong>. El examinador compara con la hoja: vale si lo esencial coincide, no hace falta repetir las palabras exactas. Hay que acertar <strong>todas</strong>.</li>
+</ol>
+<div class="dos">
+  <div class="caja verde"><strong>Si lo supera</strong>, cobra todo el bote.</div>
+  <div class="caja"><strong>Si falla</strong>, pone <strong>2 fichas</strong> en el bote (o las que tenga) y el reto pasa al <strong>siguiente mejor jugador</strong>, con otro examinador.</div>
+</div>
+<p><strong>Si nadie lo supera</strong>, el bote se queda en la mesa y se acumula a la mano siguiente. <strong>Si hay empate</strong> en la mejor mano, cada empatado hace su reto y los que lo superen se reparten el bote.</p>
+<p class="peque">Consejo: el examinador puede mezclar el orden de las preguntas y evitar dar pistas con el gesto.</p>
+
+<h2>7. Fin de la partida</h2>
+<ul>
+  <li>La partida dura <strong>8 manos</strong>, o hasta que un jugador no tenga ni una ficha para el ante (queda eliminado).</li>
+  <li>Gana quien tenga <strong>más fichas</strong>. Si hay un bote acumulado sin cobrar al terminar, no se reparte.</li>
+</ul>
+
+<h2>8. Ejemplo de una mano completa</h2>
+<p>Juegan Ana, Bruno y Carla (en ese orden, en el sentido del reloj). Todos pagan el ante y reciben 2 cartas:</p>
+<table>
+  <thead><tr><th>Jugador</th><th>Sus 2 cartas</th></tr></thead>
+  <tbody>
+    <tr><td>Ana</td><td><span class="carta">Foto HDMI</span> <span class="carta">Función HDMI</span></td></tr>
+    <tr><td>Bruno</td><td><span class="carta">Nombre RJ45</span> <span class="carta">Foto VGA</span></td></tr>
+    <tr><td>Carla</td><td><span class="carta">Ubicación DVI</span> <span class="carta">Función SATA datos</span></td></tr>
+  </tbody>
+</table>
+<ol>
+  <li><strong>Antes del flop:</strong> Ana tiene una pareja de HDMI y apuesta 1. Bruno y Carla igualan.</li>
+  <li><strong>Flop:</strong> salen <span class="carta">Nombre HDMI</span> <span class="carta">Ubicación PS/2</span> <span class="carta">Foto RJ45</span>. Ana ya tiene un trío de HDMI y Bruno una pareja de RJ45. Todos pasan.</li>
+  <li><strong>Turn:</strong> sale <span class="carta">Función DVI</span>. Carla forma una pareja de DVI. Ana sube 2 y todos igualan.</li>
+  <li><strong>River:</strong> sale <span class="carta">Ubicación HDMI</span>. Ana tiene las 4 cartas de HDMI: un <strong>póker</strong>. Todos pasan.</li>
+  <li><strong>Showdown:</strong> la mejor mano es el póker de Ana. Bruno, a su izquierda, es el examinador y le pregunta: <em>"¿Cuál es la función de HDMI?"</em> (vídeo y audio digital) y <em>"¿Dónde va HDMI?"</em> (en la placa base o la gráfica, salida a monitor o TV). Ana acierta las dos y <strong>se lleva el bote</strong>. Si hubiera fallado, habría puesto 2 fichas y el reto habría pasado a Bruno, que tiene la siguiente mejor mano: su pareja de RJ45 gana a la pareja de DVI de Carla porque el RJ45 tiene el número 17 y el DVI el 16.</li>
+</ol>
+
+<h2>9. Preguntas frecuentes</h2>
+<h3>¿Por qué mis dos cartas parecidas no son pareja?</h3>
+<p>Porque las parejas se forman por <strong>conector</strong>. Dos cartas del mismo tipo (por ejemplo, la Ubicación del VGA y la del DVI, que hablan del panel trasero) son siempre de conectores distintos. Solo juntan cartas de <em>tipos distintos del mismo conector</em>.</p>
+<h3>¿Cómo sé de qué conector es una carta de Función o de Ubicación?</h3>
+<p>Leyendo el texto con atención: cada función y cada ubicación describe a un solo conector. Si dudas, repasad los conectores antes de empezar: la Hoja del examinador es solo para quien pregunta en el reto.</p>
+<h3>No puedo usar mi comodín o mi Trampa. ¿Por qué?</h3>
+<p>Una carta especial solo cuenta si <strong>sube el rango</strong> de tu mano, si el conector no tiene ya en tu mano la carta de ese tipo y si no hay otra especial usada. Solo cuenta una por mano.</p>
+<h3>¿Qué pasa si dos jugadores tienen la misma mano?</h3>
+<p>Se desempata por el número del conector y luego por las cartas sueltas. Si sigue el empate, cada uno hace su reto y los que lo superan reparten el bote.</p>
+
+<h2>10. Glosario</h2>
+<table>
+  <thead><tr><th>Palabra</th><th>Significa</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Ante</strong></td><td>La ficha que todos ponen en el bote al empezar cada mano.</td></tr>
+    <tr><td><strong>Bote</strong></td><td>Las fichas acumuladas que se lleva el ganador.</td></tr>
+    <tr><td><strong>Flop, Turn, River</strong></td><td>Las 3 primeras, la 4.ª y la 5.ª carta de la mesa, que se van descubriendo.</td></tr>
+    <tr><td><strong>Igualar / Subir</strong></td><td>Poner las fichas de la apuesta actual / apostar 1 o 2 más.</td></tr>
+    <tr><td><strong>Retirarse</strong></td><td>Abandonar la mano perdiendo lo que hayas puesto.</td></tr>
+    <tr><td><strong>Showdown</strong></td><td>El momento de enseñar las cartas y comparar manos.</td></tr>
+    <tr><td><strong>Reto</strong></td><td>Las preguntas que debe superar el mejor jugador para cobrar el bote.</td></tr>
+    <tr><td><strong>Examinador</strong></td><td>El jugador a la izquierda del que hace el reto, que pregunta con la Hoja del examinador.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="salto">Anexo A. Hoja del examinador</h2>
+<p>Los números son la <strong>prioridad en los desempates</strong>. La columna <em>Anti-error</em> es la respuesta del comodín Anti-error y de las preguntas extra.</p>
+<h3>Conectores internos</h3>
+<table class="hoja"><thead><tr><th>#</th><th>Foto</th><th>Conector</th><th>Función</th><th>Ubicación</th><th>Anti-error</th></tr></thead><tbody><tr><td class="num">1</td><td class="foto"><img src="../../assets/img/atx-24-pines.svg" alt=""></td><td><strong>ATX 24 pines</strong></td><td>Alimentación de la placa base</td><td>Placa base, borde junto a la RAM ← fuente</td><td>Carcasa asimétrica con clip de bloqueo: solo entra en una posición</td></tr><tr><td class="num">2</td><td class="foto"><img src="../../assets/img/eps-4-4-pines.svg" alt=""></td><td><strong>EPS 4+4 pines</strong></td><td>Alimentación de la CPU</td><td>Placa base, esquina junto a la CPU ← fuente</td><td>Carcasa con formas asimétricas y clip de bloqueo</td></tr><tr><td class="num">3</td><td class="foto"><img src="../../assets/img/pcie-6-2-pines.svg" alt=""></td><td><strong>PCIe 6+2 pines</strong></td><td>Alimentación de la tarjeta gráfica</td><td>Gráfica ← fuente</td><td>Carcasa asimétrica con clip; el módulo &quot;+2&quot; se separa para usar 6 pines</td></tr><tr><td class="num">4</td><td class="foto"><img src="../../assets/img/sata-datos.svg" alt=""></td><td><strong>SATA datos</strong></td><td>Datos de discos HDD/SSD</td><td>Placa base ↔ disco</td><td>Forma de L</td></tr><tr><td class="num">5</td><td class="foto"><img src="../../assets/img/sata-alimentacion.svg" alt=""></td><td><strong>SATA alimentación</strong></td><td>Alimentación de discos</td><td>Disco ← fuente</td><td>Forma de L (más ancho que el de datos)</td></tr><tr><td class="num">6</td><td class="foto"><img src="../../assets/img/m2.svg" alt=""></td><td><strong>M.2</strong></td><td>SSD NVMe/SATA, tarjetas wifi</td><td>Placa base, entre la CPU y la ranura PCIe</td><td>Muesca (key B, M o B+M) que limita en qué ranuras entra</td></tr><tr><td class="num">7</td><td class="foto"><img src="../../assets/img/ranura-pcie.svg" alt=""></td><td><strong>Ranura PCIe x16 / x1</strong></td><td>Tarjetas de expansión</td><td>Placa base, parte inferior (ranuras largas)</td><td>Muesca a un lado que impide insertar la tarjeta al revés</td></tr><tr><td class="num">8</td><td class="foto"><img src="../../assets/img/ranura-dimm.svg" alt=""></td><td><strong>Ranura DIMM</strong></td><td>Módulos de memoria RAM</td><td>Placa base, a un lado de la CPU</td><td>Muesca descentrada y clips laterales; cada generación DDR cambia la posición de la muesca</td></tr><tr><td class="num">9</td><td class="foto"><img src="../../assets/img/socket-cpu.svg" alt=""></td><td><strong>Socket CPU</strong></td><td>Procesador</td><td>Placa base, centro (bajo el disipador)</td><td>Triángulo de alineación en una esquina y muescas asimétricas</td></tr><tr><td class="num">10</td><td class="foto"><img src="../../assets/img/panel-frontal.svg" alt=""></td><td><strong>Panel frontal (F_PANEL)</strong></td><td>Botón de encendido, reset, LEDs</td><td>Placa base, borde inferior (cables de la caja)</td><td>Cabecera con un pin ausente (key) y cables etiquetados con polaridad</td></tr></tbody></table>
+<h3 class="salto">Conectores externos</h3>
+<table class="hoja"><thead><tr><th>#</th><th>Foto</th><th>Conector</th><th>Función</th><th>Ubicación</th><th>Anti-error</th></tr></thead><tbody><tr><td class="num">11</td><td class="foto"><img src="../../assets/img/usb-a.svg" alt=""></td><td><strong>USB-A (2.0 / 3.x)</strong></td><td>Periféricos y almacenamiento</td><td>Panel trasero (varios) y frontal</td><td>Rectangular y no reversible: solo entra en una posición</td></tr><tr><td class="num">12</td><td class="foto"><img src="../../assets/img/usb-c.svg" alt=""></td><td><strong>USB-C</strong></td><td>Datos, vídeo y carga</td><td>Panel frontal y trasero (suele haber 1 o 2)</td><td>Reversible (simétrico 180°): no necesita orientación</td></tr><tr><td class="num">13</td><td class="foto"><img src="../../assets/img/hdmi.svg" alt=""></td><td><strong>HDMI</strong></td><td>Vídeo y audio digital</td><td>Placa base o gráfica: salida a monitor o TV</td><td>Forma de trapecio con dos esquinas achaflanadas</td></tr><tr><td class="num">14</td><td class="foto"><img src="../../assets/img/displayport.svg" alt=""></td><td><strong>DisplayPort</strong></td><td>Vídeo digital de alta resolución</td><td>Placa base o gráfica: salida a monitor de alta resolución</td><td>Una esquina cortada (achaflanada)</td></tr><tr><td class="num">15</td><td class="foto"><img src="../../assets/img/vga.svg" alt=""></td><td><strong>VGA</strong></td><td>Vídeo analógico (antiguo)</td><td>Panel trasero, salida de vídeo azul (antigua)</td><td>Forma de D con tornillos de sujeción</td></tr><tr><td class="num">16</td><td class="foto"><img src="../../assets/img/dvi.svg" alt=""></td><td><strong>DVI</strong></td><td>Vídeo digital/analógico (antiguo)</td><td>Panel trasero, salida de vídeo blanca (antigua)</td><td>Forma de D con tornillos y pin plano distintivo</td></tr><tr><td class="num">17</td><td class="foto"><img src="../../assets/img/rj45.svg" alt=""></td><td><strong>RJ45</strong></td><td>Red Ethernet</td><td>Panel trasero, entrada de red</td><td>Pestaña de plástico (clip) y forma asimétrica</td></tr><tr><td class="num">18</td><td class="foto"><img src="../../assets/img/jack-35.svg" alt=""></td><td><strong>Jack 3,5 mm</strong></td><td>Audio: salida, micrófono, línea</td><td>Panel trasero (3 jacks de colores) y frontal</td><td>Sin muesca: se evita el error con el código de colores (verde salida, rosa micrófono, azul línea)</td></tr><tr><td class="num">19</td><td class="foto"><img src="../../assets/img/ps2.svg" alt=""></td><td><strong>PS/2</strong></td><td>Teclado y ratón (antiguo)</td><td>Panel trasero, zona de teclado y ratón</td><td>Mini-DIN con guía y código de colores (violeta teclado, verde ratón)</td></tr><tr><td class="num">20</td><td class="foto"><img src="../../assets/img/iec-c13-c14.svg" alt=""></td><td><strong>IEC C13/C14</strong></td><td>Alimentación eléctrica de la fuente</td><td>Fuente</td><td>Forma trapezoidal asimétrica; C13 es la hembra del cable y C14 el macho de la fuente</td></tr></tbody></table>
+
+<h3>Velocidades de USB (comodín USB)</h3>
+<table>
+  <thead><tr><th>Versión</th><th>Velocidad</th></tr></thead>
+  <tbody>
+    <tr><td>USB 2.0</td><td>480 Mbps</td></tr>
+    <tr><td>USB 3.2 Gen 1 (antes 3.0)</td><td>5 Gbps</td></tr>
+    <tr><td>USB 3.2 Gen 2 (antes 3.1)</td><td>10 Gbps</td></tr>
+    <tr><td>USB 3.2 Gen 2x2</td><td>20 Gbps</td></tr>
+    <tr><td>USB4</td><td>40 Gbps</td></tr>
+    <tr><td>USB4 versión 2.0 (opcional)</td><td>80 Gbps</td></tr>
+  </tbody>
+</table>
+
+<h3>Pares de la carta Trampa</h3>
+<p>HDMI / DisplayPort · VGA / DVI · USB-A / USB-C · SATA datos / M.2 · ATX 24 pines / EPS 4+4 pines · PCIe 6+2 pines / EPS 4+4 pines.</p>
+
+<p class="peque">Las ilustraciones de los conectores son obra propia del grupo (CC0). Versión web del juego: pablo96sancho.github.io/Juego-Conectores-DAM</p>
+</body></html>

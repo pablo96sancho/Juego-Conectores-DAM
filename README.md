@@ -24,6 +24,23 @@ Es un proyecto en grupo del módulo **Sistemas Informáticos** (DAM, 1.º, IES L
 
 Cada conector tiene **4 cartas**: una **Foto**, un **Nombre**, una **Función** y una **Ubicación**. Una mano de poker se forma agrupando cartas *del mismo conector, sea cual sea su tipo*: la foto del HDMI y la función "Vídeo y audio digital" son una pareja, aunque no se parezcan en nada.
 
+### La idea clave: los grupos son por conector
+
+Esto es lo que más cuesta al principio, así que conviene tenerlo claro:
+
+> **Forman grupo las cartas del *mismo conector* y de *distinto tipo*.** Dos cartas del mismo tipo (por ejemplo, dos *Ubicación*) **nunca** son del mismo conector, porque cada conector tiene una sola carta de cada tipo.
+
+| Cartas | ¿Qué forman? | Por qué |
+|---|---|---|
+| Foto de HDMI + Nombre de HDMI | **Pareja de HDMI** | Mismo conector, tipos distintos |
+| Foto de HDMI + Función "Vídeo y audio digital" | **Pareja de HDMI** | Mismo conector, aunque no se parezcan en nada |
+| Foto, Nombre y Función de HDMI | **Trío de HDMI** | Tres tipos del mismo conector |
+| Las 4 cartas de HDMI | **Póker de HDMI** | El máximo: un conector solo tiene 4 cartas |
+| Ubicación de VGA + Ubicación de DVI | *Nada* (dos cartas sueltas) | Mismo tipo: nunca son del mismo conector |
+| Nombre de HDMI + Nombre de DisplayPort | *Nada* | Se parecen, pero son conectores distintos |
+
+Por eso el juego enseña: para saber qué cartas combinan tienes que **relacionar la foto, el nombre, la función y la ubicación de cada conector**.
+
 <div align="center">
 <img src="docs/img/juego.png" alt="Una mano en el turn: 4 cartas descubiertas en la mesa y 2 cartas propias" width="520">
 </div>
@@ -81,37 +98,83 @@ La partida dura **8 manos** o hasta que alguien se queda sin fichas, y tu result
 <img src="docs/img/reglas.png" alt="Resumen de reglas que se muestra antes de la primera partida" width="520">
 </div>
 
+### Preguntas frecuentes
+
+<details>
+<summary><strong>¿Por qué mis dos cartas con el mismo texto no son pareja?</strong></summary>
+
+Porque las parejas se forman por **conector**, no por parecido. Dos cartas del mismo tipo (por ejemplo, dos *Ubicación*) son siempre de conectores distintos, y el juego solo junta cartas de **tipos distintos del mismo conector**. Es lo que te pasa si tienes, por ejemplo, la Ubicación del VGA y la del DVI: las dos hablan del panel trasero, pero no son pareja.
+</details>
+
+<details>
+<summary><strong>¿Cómo sé de qué conector es una carta de Ubicación o de Función?</strong></summary>
+
+Leyendo el texto con atención: cada función y cada ubicación describe a un solo conector (por ejemplo, "Panel trasero, salida de vídeo azul (antigua)" es el VGA y la blanca es el DVI). Si dudas, consulta la tabla de los 20 conectores.
+</details>
+
+<details>
+<summary><strong>No uso mi comodín o mi Trampa. ¿Por qué?</strong></summary>
+
+Una carta especial solo cuenta si **sube el rango** de tu mano y si el conector todavía no tiene en tu mano la carta de ese tipo. Además solo cuenta una por mano. La pista de la partida te dice cuándo cuenta alguna.
+</details>
+
+<details>
+<summary><strong>¿Qué pasa si dos jugadores tienen la misma mano?</strong></summary>
+
+Se desempata por el número del conector (gana el más alto) y luego por las cartas sueltas. Si sigue el empate, cada uno hace su reto y los que lo superan reparten el bote.
+</details>
+
+<details>
+<summary><strong>¿Qué pasa si fallo el reto?</strong></summary>
+
+Pierdes 2 fichas (van al bote) y el reto pasa al siguiente mejor jugador. Si nadie lo supera, el bote se acumula a la mano siguiente.
+</details>
+
+### Glosario
+
+| Palabra | Significa |
+|---|---|
+| **Ante** | La ficha que todos ponen en el bote al empezar cada mano |
+| **Bote** | Las fichas acumuladas que se lleva el ganador |
+| **Flop / Turn / River** | Las 3 primeras, la 4.ª y la 5.ª carta de la mesa, que se van descubriendo |
+| **Igualar / Subir** | Poner las fichas de la apuesta actual / apostar 1 o 2 más |
+| **Retirarse** | Abandonar la mano perdiendo lo que hayas puesto |
+| **Showdown** | El momento de enseñar las cartas y comparar manos |
+| **Reto** | Las preguntas que debe superar el mejor jugador para cobrar el bote |
+
 ## Los 20 conectores
 
 ### Internos
 
 | # | Conector | Función | Ubicación | Anti-error |
 |---|---|---|---|---|
-| 1 | **ATX 24 pines** | Alimentación de la placa base | Placa base ← fuente | Carcasa asimétrica con clip de bloqueo: solo entra en una posición |
-| 2 | **EPS 4+4 pines** | Alimentación de la CPU | Placa base ← fuente | Carcasa con formas asimétricas y clip de bloqueo |
+| 1 | **ATX 24 pines** | Alimentación de la placa base | Placa base, borde junto a la RAM ← fuente | Carcasa asimétrica con clip de bloqueo: solo entra en una posición |
+| 2 | **EPS 4+4 pines** | Alimentación de la CPU | Placa base, esquina junto a la CPU ← fuente | Carcasa con formas asimétricas y clip de bloqueo |
 | 3 | **PCIe 6+2 pines** | Alimentación de la tarjeta gráfica | Gráfica ← fuente | Carcasa asimétrica con clip; el módulo "+2" se separa para usar 6 pines |
 | 4 | **SATA datos** | Datos de discos HDD/SSD | Placa base ↔ disco | Forma de L |
 | 5 | **SATA alimentación** | Alimentación de discos | Disco ← fuente | Forma de L (más ancho que el de datos) |
-| 6 | **M.2** | SSD NVMe/SATA, tarjetas wifi | Placa base | Muesca (key B, M o B+M) que limita en qué ranuras entra |
-| 7 | **Ranura PCIe x16 / x1** | Tarjetas de expansión | Placa base | Muesca a un lado que impide insertar la tarjeta al revés |
-| 8 | **Ranura DIMM** | Módulos de memoria RAM | Placa base | Muesca descentrada y clips laterales; cada generación DDR cambia la posición de la muesca |
-| 9 | **Socket CPU** | Procesador | Placa base | Triángulo de alineación en una esquina y muescas asimétricas |
-| 10 | **Panel frontal (F_PANEL)** | Botón de encendido, reset, LEDs | Placa base | Cabecera con un pin ausente (key) y cables etiquetados con polaridad |
+| 6 | **M.2** | SSD NVMe/SATA, tarjetas wifi | Placa base, entre la CPU y la ranura PCIe | Muesca (key B, M o B+M) que limita en qué ranuras entra |
+| 7 | **Ranura PCIe x16 / x1** | Tarjetas de expansión | Placa base, parte inferior (ranuras largas) | Muesca a un lado que impide insertar la tarjeta al revés |
+| 8 | **Ranura DIMM** | Módulos de memoria RAM | Placa base, a un lado de la CPU | Muesca descentrada y clips laterales; cada generación DDR cambia la posición de la muesca |
+| 9 | **Socket CPU** | Procesador | Placa base, centro (bajo el disipador) | Triángulo de alineación en una esquina y muescas asimétricas |
+| 10 | **Panel frontal (F_PANEL)** | Botón de encendido, reset, LEDs | Placa base, borde inferior (cables de la caja) | Cabecera con un pin ausente (key) y cables etiquetados con polaridad |
 
 ### Externos
 
 | # | Conector | Función | Ubicación | Anti-error |
 |---|---|---|---|---|
-| 11 | **USB-A (2.0 / 3.x)** | Periféricos y almacenamiento | Panel trasero/frontal | Rectangular y no reversible: solo entra en una posición |
-| 12 | **USB-C** | Datos, vídeo y carga | Panel trasero/frontal | Reversible (simétrico 180°): no necesita orientación |
-| 13 | **HDMI** | Vídeo y audio digital | Placa base o gráfica | Forma de trapecio con dos esquinas achaflanadas |
-| 14 | **DisplayPort** | Vídeo digital de alta resolución | Placa base o gráfica | Una esquina cortada (achaflanada) |
-| 15 | **VGA** | Vídeo analógico (antiguo) | Panel trasero | Forma de D con tornillos de sujeción |
-| 16 | **DVI** | Vídeo digital/analógico (antiguo) | Panel trasero | Forma de D con tornillos y pin plano distintivo |
-| 17 | **RJ45** | Red Ethernet | Panel trasero | Pestaña de plástico (clip) y forma asimétrica |
-| 18 | **Jack 3,5 mm** | Audio: salida, micrófono, línea | Panel trasero/frontal | Sin muesca: se evita el error con el código de colores (verde salida, rosa micrófono, azul línea) |
-| 19 | **PS/2** | Teclado y ratón (antiguo) | Panel trasero | Mini-DIN con guía y código de colores (violeta teclado, verde ratón) |
+| 11 | **USB-A (2.0 / 3.x)** | Periféricos y almacenamiento | Panel trasero (varios) y frontal | Rectangular y no reversible: solo entra en una posición |
+| 12 | **USB-C** | Datos, vídeo y carga | Panel frontal y trasero (suele haber 1 o 2) | Reversible (simétrico 180°): no necesita orientación |
+| 13 | **HDMI** | Vídeo y audio digital | Placa base o gráfica: salida a monitor o TV | Forma de trapecio con dos esquinas achaflanadas |
+| 14 | **DisplayPort** | Vídeo digital de alta resolución | Placa base o gráfica: salida a monitor de alta resolución | Una esquina cortada (achaflanada) |
+| 15 | **VGA** | Vídeo analógico (antiguo) | Panel trasero, salida de vídeo azul (antigua) | Forma de D con tornillos de sujeción |
+| 16 | **DVI** | Vídeo digital/analógico (antiguo) | Panel trasero, salida de vídeo blanca (antigua) | Forma de D con tornillos y pin plano distintivo |
+| 17 | **RJ45** | Red Ethernet | Panel trasero, entrada de red | Pestaña de plástico (clip) y forma asimétrica |
+| 18 | **Jack 3,5 mm** | Audio: salida, micrófono, línea | Panel trasero (3 jacks de colores) y frontal | Sin muesca: se evita el error con el código de colores (verde salida, rosa micrófono, azul línea) |
+| 19 | **PS/2** | Teclado y ratón (antiguo) | Panel trasero, zona de teclado y ratón | Mini-DIN con guía y código de colores (violeta teclado, verde ratón) |
 | 20 | **IEC C13/C14** | Alimentación eléctrica de la fuente | Fuente | Forma trapezoidal asimétrica; C13 es la hembra del cable y C14 el macho de la fuente |
+
+Cada conector tiene una **ubicación propia y distinta**, a propósito: así una carta de *Ubicación* te dice dónde va ese conector concreto y no vale para otro.
 
 ## ¿Cómo está hecho?
 
