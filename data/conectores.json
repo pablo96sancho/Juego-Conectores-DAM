@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "nombre": "ATX 24 pines",
+    "tipo": "interno",
+    "funcion": "Alimentación de la placa base",
+    "ubicacion": "Placa base ← fuente",
+    "antiError": "Carcasa asimétrica con clip de bloqueo: solo entra en una posición",
+    "imagen": "assets/img/atx-24-pines.svg"
+  },
+  {
+    "id": 2,
+    "nombre": "EPS 4+4 pines",
+    "tipo": "interno",
+    "funcion": "Alimentación de la CPU",
+    "ubicacion": "Placa base ← fuente",
+    "antiError": "Carcasa con formas asimétricas y clip de bloqueo",
+    "imagen": "assets/img/eps-4-4-pines.svg"
+  },
+  {
+    "id": 3,
+    "nombre": "PCIe 6+2 pines",
+    "tipo": "interno",
+    "funcion": "Alimentación de la tarjeta gráfica",
+    "ubicacion": "Gráfica ← fuente",
+    "antiError": "Carcasa asimétrica con clip; el módulo \"+2\" se separa para usar 6 pines",
+    "imagen": "assets/img/pcie-6-2-pines.svg"
+  },
+  {
+    "id": 4,
+    "nombre": "SATA datos",
+    "tipo": "interno",
+    "funcion": "Datos de discos HDD/SSD",
+    "ubicacion": "Placa base ↔ disco",
+    "antiError": "Forma de L",
+    "imagen": "assets/img/sata-datos.svg"
+  },
+  {
+    "id": 5,
+    "nombre": "SATA alimentación",
+    "tipo": "interno",
+    "funcion": "Alimentación de discos",
+    "ubicacion": "Disco ← fuente",
+    "antiError": "Forma de L (más ancho que el de datos)",
+    "imagen": "assets/img/sata-alimentacion.svg"
+  },
+  {
+    "id": 6,
+    "nombre": "M.2",
+    "tipo": "interno",
+    "funcion": "SSD NVMe/SATA, tarjetas wifi",
+    "ubicacion": "Placa base",
+    "antiError": "Muesca (key B, M o B+M) que limita en qué ranuras entra",
+    "imagen": "assets/img/m2.svg"
+  },
+  {
+    "id": 7,
+    "nombre": "Ranura PCIe x16 / x1",
+    "tipo": "interno",
+    "funcion": "Tarjetas de expansión",
+    "ubicacion": "Placa base",
+    "antiError": "Muesca a un lado que impide insertar la tarjeta al revés",
+    "imagen": "assets/img/ranura-pcie.svg"
+  },
+  {
+    "id": 8,
+    "nombre": "Ranura DIMM",
+    "tipo": "interno",
+    "funcion": "Módulos de memoria RAM",
+    "ubicacion": "Placa base",
+    "antiError": "Muesca descentrada y clips laterales; cada generación DDR cambia la posición de la muesca",
+    "imagen": "assets/img/ranura-dimm.svg"
+  },
+  {
+    "id": 9,
+    "nombre": "Socket CPU",
+    "tipo": "interno",
+    "funcion": "Procesador",
+    "ubicacion": "Placa base",
+    "antiError": "Triángulo de alineación en una esquina y muescas asimétricas",
+    "imagen": "assets/img/socket-cpu.svg"
+  },
+  {
+    "id": 10,
+    "nombre": "Panel frontal (F_PANEL)",
+    "tipo": "interno",
+    "funcion": "Botón de encendido, reset, LEDs",
+    "ubicacion": "Placa base",
+    "antiError": "Cabecera con un pin ausente (key) y cables etiquetados con polaridad",
+    "imagen": "assets/img/panel-frontal.svg"
+  },
+  {
+    "id": 11,
+    "nombre": "USB-A (2.0 / 3.x)",
+    "tipo": "externo",
+    "funcion": "Periféricos y almacenamiento",
+    "ubicacion": "Panel trasero/frontal",
+    "antiError": "Rectangular y no reversible: solo entra en una posición",
+    "imagen": "assets/img/usb-a.svg"
+  },
+  {
+    "id": 12,
+    "nombre": "USB-C",
+    "tipo": "externo",
+    "funcion": "Datos, vídeo y carga",
+    "ubicacion": "Panel trasero/frontal",
+    "antiError": "Reversible (simétrico 180°): no necesita orientación",
+    "imagen": "assets/img/usb-c.svg"
+  },
+  {
+    "id": 13,
+    "nombre": "HDMI",
+    "tipo": "externo",
+    "funcion": "Vídeo y audio digital",
+    "ubicacion": "Placa base o gráfica",
+    "antiError": "Forma de trapecio con dos esquinas achaflanadas",
+    "imagen": "assets/img/hdmi.svg"
+  },
+  {
+    "id": 14,
+    "nombre": "DisplayPort",
+    "tipo": "externo",
+    "funcion": "Vídeo digital de alta resolución",
+    "ubicacion": "Placa base o gráfica",
+    "antiError": "Una esquina cortada (achaflanada)",
+    "imagen": "assets/img/displayport.svg"
+  },
+  {
+    "id": 15,
+    "nombre": "VGA",
+    "tipo": "externo",
+    "funcion": "Vídeo analógico (antiguo)",
+    "ubicacion": "Panel trasero",
+    "antiError": "Forma de D con tornillos de sujeción",
+    "imagen": "assets/img/vga.svg"
+  },
+  {
+    "id": 16,
+    "nombre": "DVI",
+    "tipo": "externo",
+    "funcion": "Vídeo digital/analógico (antiguo)",
+    "ubicacion": "Panel trasero",
+    "antiError": "Forma de D con tornillos y pin plano distintivo",
+    "imagen": "assets/img/dvi.svg"
+  },
+  {
+    "id": 17,
+    "nombre": "RJ45",
+    "tipo": "externo",
+    "funcion": "Red Ethernet",
+    "ubicacion": "Panel trasero",
+    "antiError": "Pestaña de plástico (clip) y forma asimétrica",
+    "imagen": "assets/img/rj45.svg"
+  },
+  {
+    "id": 18,
+    "nombre": "Jack 3,5 mm",
+    "tipo": "externo",
+    "funcion": "Audio: salida, micrófono, línea",
+    "ubicacion": "Panel trasero/frontal",
+    "antiError": "Sin muesca: se evita el error con el código de colores (verde salida, rosa micrófono, azul línea)",
+    "imagen": "assets/img/jack-35.svg"
+  },
+  {
+    "id": 19,
+    "nombre": "PS/2",
+    "tipo": "externo",
+    "funcion": "Teclado y ratón (antiguo)",
+    "ubicacion": "Panel trasero",
+    "antiError": "Mini-DIN con guía y código de colores (violeta teclado, verde ratón)",
+    "imagen": "assets/img/ps2.svg"
+  },
+  {
+    "id": 20,
+    "nombre": "IEC C13/C14",
+    "tipo": "externo",
+    "funcion": "Alimentación eléctrica de la fuente",
+    "ubicacion": "Fuente",
+    "antiError": "Forma trapezoidal asimétrica; C13 es la hembra del cable y C14 el macho de la fuente",
+    "imagen": "assets/img/iec-c13-c14.svg"
+  }
+]
