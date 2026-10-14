@@ -14,11 +14,16 @@
   <main>
     <section aria-labelledby="t-partida">
       <h2 id="t-partida">Partida contra 2 bots</h2>
-      <button id="nueva" type="button">Nueva partida</button>
+      <p class="nombre">
+        <label for="nombre">Tu nombre</label>
+        <input id="nombre" type="text" maxlength="20" autocomplete="off" placeholder="Jugador">
+        <button id="nueva" type="button">Nueva partida</button>
+      </p>
       <div id="mesa" hidden>
         <p id="info" class="info"></p>
         <ul id="jugadores" class="jugadores" aria-label="Jugadores"></ul>
         <h3>Tu mano</h3>
+        <p id="pista" class="pista" role="status"></p>
         <ul id="mano-juego" class="mano" aria-label="Tu mano"></ul>
         <div id="acciones" class="acciones"></div>
         <div id="panel" class="panel"></div>
@@ -26,6 +31,51 @@
         <ol id="registro" class="registro" aria-live="polite"></ol>
       </div>
     </section>
+
+    <details class="ayuda">
+      <summary>Ayuda: ranking de manos y reglas</summary>
+      <p>Las cartas se agrupan por conector, sea cual sea su tipo (Foto, Nombre, Función o Ubicación). De menor a mayor:</p>
+      <table>
+        <thead><tr><th>Rango</th><th>Mano</th><th>Grupos</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>Carta alta</td><td>1-1-1-1-1</td></tr>
+          <tr><td>1</td><td>Pareja</td><td>2-1-1-1</td></tr>
+          <tr><td>2</td><td>Doble pareja</td><td>2-2-1</td></tr>
+          <tr><td>3</td><td>Trío</td><td>3-1-1</td></tr>
+          <tr><td>4</td><td>Full</td><td>3-2</td></tr>
+          <tr><td>5</td><td>Póker</td><td>4-1</td></tr>
+          <tr><td>6</td><td>Escalera de energía</td><td>Cartas <strong>Nombre</strong> de IEC C13/C14, ATX 24 pines, EPS 4+4 pines, PCIe 6+2 pines y SATA alimentación</td></tr>
+        </tbody>
+      </table>
+      <h3>Desempates</h3>
+      <p>Gana el rango más alto. Si empatan, se compara el número del conector del grupo principal (en doble pareja, primero la pareja mayor y luego la menor) y después las cartas sueltas, de mayor a menor número. Si sigue el empate, se reparte el bote.</p>
+      <h3>Cartas especiales</h3>
+      <p>Solo cuenta <strong>una</strong> carta especial por mano, y solo si mejora el rango. Para que cuente hay que superar su pregunta en el showdown.</p>
+      <ul>
+        <li><strong>Trampa:</strong> cuenta como carta de <em>Función</em> de uno de los dos conectores de su par. Hay que saber qué función tiene cada uno.</li>
+        <li><strong>Comodín USB:</strong> sustituye a una carta de USB-A o USB-C. Hay que saber la velocidad de una versión de USB.</li>
+        <li><strong>Comodín Anti-error:</strong> sustituye a una carta de un conector interno. Hay que saber su característica anti-error.</li>
+      </ul>
+      <h3>Velocidades de USB</h3>
+      <table>
+        <thead><tr><th>Versión</th><th>Velocidad</th></tr></thead>
+        <tbody>
+          <tr><td>USB 2.0</td><td>480 Mbps</td></tr>
+          <tr><td>USB 3.2 Gen 1 (antes 3.0)</td><td>5 Gbps</td></tr>
+          <tr><td>USB 3.2 Gen 2 (antes 3.1)</td><td>10 Gbps</td></tr>
+          <tr><td>USB 3.2 Gen 2x2</td><td>20 Gbps</td></tr>
+          <tr><td>USB4</td><td>40 Gbps</td></tr>
+          <tr><td>USB4 versión 2.0 (opcional)</td><td>80 Gbps</td></tr>
+        </tbody>
+      </table>
+    </details>
+
+    <details class="ranking">
+      <summary>Ranking local</summary>
+      <ol id="ranking"></ol>
+      <p id="ranking-vacio">Todavía no hay partidas guardadas en este navegador.</p>
+      <button id="borrar-ranking" type="button" class="secundario">Borrar ranking</button>
+    </details>
 
     <details>
       <summary>Modo práctica</summary>

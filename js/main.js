@@ -1,6 +1,7 @@
 // Arranque y conexión con la UI
 import { loadConnectors, buildDeck, shuffle, deal, describeCard } from './deck.js';
 import { evaluateHand } from './hands.js';
+import { loadRanking, addScore, clearRanking } from './ranking.js';
 import {
   createGame, applyBetting, applyDraw, submitChallenge, nextHand, runBots,
   legalActions, MAX_DISCARD, FAIL_PENALTY,
@@ -81,8 +82,63 @@ let game = null;
 let conectoresJuego = [];
 const seleccion = new Set();
 
+// localStorage puede no estar disponible (modo privado, datos bloqueados)
+function almacen() {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
+
+function renderRanking(resaltar) {
+  const lista = $('ranking');
+  lista.replaceChildren();
+  const store = almacen();
+  const entradas = store ? loadRanking(store) : [];
+  entradas.forEach(e => {
+    const fecha = new Date(e.date).toLocaleDateString('es-ES');
+    lista.append(el('li', { class: e.date === resaltar ? 'mio' : '' }, `${e.name}: ${e.chips} fichas (${fecha})`));
+  });
+  $('ranking-vacio').hidden = entradas.length > 0;
+  $('ranking-vacio').textContent = store
+    ? 'Todavía no hay partidas guardadas en este navegador.'
+    : 'Este navegador no permite guardar el ranking.';
+}
+
+function guardarPuntuacion(g) {
+  const store = almacen();
+  if (!store || g.saved) return;
+  g.saved = true;
+  const ranking = addScore(store, { name: g.players[0].name, chips: g.players[0].chips, hands: g.handNumber });
+  renderRanking(ranking.find(e => e.name === g.players[0].name && e.chips === g.players[0].chips)?.date);
+  $('ranking').closest('details').open = true;
+}
+
+// Qué mano tienes y qué tendrás que justificar si usas una carta especial
+function textoPista(g) {
+  const yo = g.players[0];
+  if (yo.out || yo.folded) return '';
+  const ev = evaluateHand(yo.hand);
+  const nombre = id => g.connectors.find(c => c.id === id).nombre;
+  const principal = ev.rank > 0 ? ` de ${nombre(ev.mainConnectorId)}` : '';
+  let texto = `Ahora mismo tienes: ${ev.rankName}${principal}.`;
+  if (ev.special) {
+    const { card, as } = ev.special;
+    const tipo = { foto: 'Foto', nombre: 'Nombre', funcion: 'Función', ubicacion: 'Ubicación' }[as.type];
+    const deber = {
+      trampa: `explicar qué función tiene ${nombre(as.connectorId)} frente a su conector parecido`,
+      comodinUsb: 'decir la velocidad de una versión de USB',
+      comodinAntiError: `explicar la característica anti-error de ${nombre(as.connectorId)}`,
+    }[card.kind];
+    texto += ` La carta especial cuenta como carta ${tipo} de ${nombre(as.connectorId)}: si ganas, tendrás que ${deber}.`;
+  }
+  return texto;
+}
+
 function nuevaPartida() {
-  game = createGame({ connectors: conectoresJuego });
+  const nombre = $('nombre').value.trim();
+  game = createGame({ connectors: conectoresJuego, humanName: nombre || 'Jugador' });
   seleccion.clear();
   runBots(game);
   $('mesa').hidden = false;
@@ -228,12 +284,17 @@ function render(enfocar) {
   const elegir = g.phase === 'draw' && g.turn === 0 && !g.players[0].folded;
   g.players[0].hand.forEach((carta, i) => ul.append(crearCarta(carta, elegir, i)));
 
+  $('pista').textContent = g.phase === 'gameOver' ? '' : textoPista(g);
+
   renderAcciones(g);
   const panel = $('panel');
   panel.replaceChildren();
   if (g.phase === 'challenge') renderReto(g, panel);
   else if (g.phase === 'handOver') renderResultado(g, panel);
-  else if (g.phase === 'gameOver') renderFinal(g, panel);
+  else if (g.phase === 'gameOver') {
+    renderFinal(g, panel);
+    guardarPuntuacion(g);
+  }
 
   const reg = $('registro');
   reg.replaceChildren(...g.log.slice(-12).map(t => el('li', {}, t)));
@@ -254,6 +315,12 @@ try {
     `${conectores.length} conectores cargados (${internos} internos, ${conectores.length - internos} externos).`;
   document.getElementById('repartir').addEventListener('click', () => repartir(conectores));
   $('nueva').addEventListener('click', nuevaPartida);
+  $('borrar-ranking').addEventListener('click', () => {
+    const store = almacen();
+    if (store) clearRanking(store);
+    renderRanking();
+  });
+  renderRanking();
 } catch (error) {
   document.getElementById('estado').textContent =
     'No se pudieron cargar los conectores. ¿Estás usando un servidor local?';
