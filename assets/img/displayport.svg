@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Puerto DisplayPort con una esquina cortada">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <polygon points="30,46 170,46 170,96 60,96 30,76" fill="#999" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="40,54 160,54 160,88 64,88 40,72" fill="#1f2a36"/>
+  <rect x="64.0" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+  <rect x="74.5" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+  <rect x="85.0" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+  <rect x="95.5" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+  <rect x="106.0" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+  <rect x="116.5" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+  <rect x="127.0" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+  <rect x="137.5" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+  <rect x="148.0" y="62" width="5" height="8" rx="0" fill="#d4af37"/>
+
+</svg>

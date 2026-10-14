@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Cabecera F_PANEL de 2x5 pines con un pin ausente">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <rect x="30" y="42" width="140" height="56" rx="3" fill="#222" stroke="#000" stroke-width="1.5"/>
+  <rect x="42" y="50" width="10" height="10" rx="0" fill="#d4af37"/>
+  <rect x="70" y="50" width="10" height="10" rx="0" fill="#d4af37"/>
+  <rect x="98" y="50" width="10" height="10" rx="0" fill="#d4af37"/>
+  <rect x="126" y="50" width="10" height="10" rx="0" fill="#d4af37"/>
+  <rect x="42" y="74" width="10" height="10" rx="0" fill="#d4af37"/>
+  <rect x="70" y="74" width="10" height="10" rx="0" fill="#d4af37"/>
+  <rect x="98" y="74" width="10" height="10" rx="0" fill="#d4af37"/>
+  <rect x="126" y="74" width="10" height="10" rx="0" fill="#d4af37"/>
+  <rect x="154" y="74" width="10" height="10" rx="0" fill="#d4af37"/>
+
+</svg>

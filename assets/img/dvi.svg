@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Puerto DVI en forma de D con tornillos y pin plano">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <circle cx="14" cy="70" r="7" fill="#999" stroke="#444" stroke-width="1.5"/>
+  <circle cx="186" cy="70" r="7" fill="#999" stroke="#444" stroke-width="1.5"/>
+  <path d="M24,40 H176 L164,100 H36 Z" fill="#f4f1e6" stroke="#555" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M36,50 H164 L156,90 H44 Z" fill="#1f2a36"/>
+  <circle cx="44.0" cy="56" r="2.2" fill="#d4af37"/>
+  <circle cx="52.5" cy="56" r="2.2" fill="#d4af37"/>
+  <circle cx="61.0" cy="56" r="2.2" fill="#d4af37"/>
+  <circle cx="69.5" cy="56" r="2.2" fill="#d4af37"/>
+  <circle cx="78.0" cy="56" r="2.2" fill="#d4af37"/>
+  <circle cx="86.5" cy="56" r="2.2" fill="#d4af37"/>
+  <circle cx="95.0" cy="56" r="2.2" fill="#d4af37"/>
+  <circle cx="103.5" cy="56" r="2.2" fill="#d4af37"/>
+  <circle cx="44.0" cy="64" r="2.2" fill="#d4af37"/>
+  <circle cx="52.5" cy="64" r="2.2" fill="#d4af37"/>
+  <circle cx="61.0" cy="64" r="2.2" fill="#d4af37"/>
+  <circle cx="69.5" cy="64" r="2.2" fill="#d4af37"/>
+  <circle cx="78.0" cy="64" r="2.2" fill="#d4af37"/>
+  <circle cx="86.5" cy="64" r="2.2" fill="#d4af37"/>
+  <circle cx="95.0" cy="64" r="2.2" fill="#d4af37"/>
+  <circle cx="103.5" cy="64" r="2.2" fill="#d4af37"/>
+  <circle cx="44.0" cy="72" r="2.2" fill="#d4af37"/>
+  <circle cx="52.5" cy="72" r="2.2" fill="#d4af37"/>
+  <circle cx="61.0" cy="72" r="2.2" fill="#d4af37"/>
+  <circle cx="69.5" cy="72" r="2.2" fill="#d4af37"/>
+  <circle cx="78.0" cy="72" r="2.2" fill="#d4af37"/>
+  <circle cx="86.5" cy="72" r="2.2" fill="#d4af37"/>
+  <circle cx="95.0" cy="72" r="2.2" fill="#d4af37"/>
+  <circle cx="103.5" cy="72" r="2.2" fill="#d4af37"/>
+  <rect x="122" y="56" width="28" height="26" rx="0" fill="none"/>
+  <rect x="150" y="62" width="10" height="3" rx="0" fill="#d4af37"/>
+  <rect x="150" y="70" width="10" height="3" rx="0" fill="#d4af37"/>
+  <rect x="100" y="80" width="8" height="3" rx="0" fill="#d4af37"/>
+
+</svg>

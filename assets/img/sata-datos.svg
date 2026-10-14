@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Conector SATA de datos con forma de L">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <path d="M30,40 H170 V80 H100 V100 H30 Z" fill="#c0392b" stroke="#222" stroke-width="1.5" stroke-linejoin="round"/>
+  <rect x="42" y="48" width="8" height="40" rx="1" fill="#d4af37"/>
+  <rect x="59" y="48" width="8" height="40" rx="1" fill="#d4af37"/>
+  <rect x="76" y="48" width="8" height="40" rx="1" fill="#d4af37"/>
+  <rect x="93" y="48" width="8" height="40" rx="1" fill="#d4af37"/>
+  <rect x="110" y="48" width="8" height="40" rx="1" fill="#d4af37"/>
+  <rect x="127" y="48" width="8" height="40" rx="1" fill="#d4af37"/>
+  <rect x="144" y="48" width="8" height="40" rx="1" fill="#d4af37"/>
+
+</svg>

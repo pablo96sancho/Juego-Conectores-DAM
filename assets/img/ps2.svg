@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Dos puertos PS/2 mini-DIN: violeta para teclado y verde para ratón">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <circle cx="54" cy="70" r="34" fill="#8e44ad" stroke="#333" stroke-width="2"/>
+  <circle cx="54" cy="70" r="25" fill="#1f2a36"/>
+  <rect x="49" y="48" width="10" height="6" rx="0" fill="#bdc3c7"/>
+  <circle cx="42" cy="64" r="2.6" fill="#d4af37"/>
+  <circle cx="66" cy="64" r="2.6" fill="#d4af37"/>
+  <circle cx="42" cy="78" r="2.6" fill="#d4af37"/>
+  <circle cx="66" cy="78" r="2.6" fill="#d4af37"/>
+  <circle cx="54" cy="84" r="2.6" fill="#d4af37"/>
+  <circle cx="54" cy="68" r="2.6" fill="#d4af37"/>
+  <circle cx="146" cy="70" r="34" fill="#27ae60" stroke="#333" stroke-width="2"/>
+  <circle cx="146" cy="70" r="25" fill="#1f2a36"/>
+  <rect x="141" y="48" width="10" height="6" rx="0" fill="#bdc3c7"/>
+  <circle cx="134" cy="64" r="2.6" fill="#d4af37"/>
+  <circle cx="158" cy="64" r="2.6" fill="#d4af37"/>
+  <circle cx="134" cy="78" r="2.6" fill="#d4af37"/>
+  <circle cx="158" cy="78" r="2.6" fill="#d4af37"/>
+  <circle cx="146" cy="84" r="2.6" fill="#d4af37"/>
+  <circle cx="146" cy="68" r="2.6" fill="#d4af37"/>
+
+</svg>

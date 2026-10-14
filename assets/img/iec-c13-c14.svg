@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Conector de corriente IEC C14 con tres pines">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <polygon points="40,40 160,40 176,98 24,98" fill="#222" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="54,50 146,50 158,88 42,88" fill="#444"/>
+  <rect x="70" y="56" width="10" height="22" rx="0" fill="#d4af37"/>
+  <rect x="120" y="56" width="10" height="22" rx="0" fill="#d4af37"/>
+  <rect x="96" y="64" width="8" height="18" rx="0" fill="#d4af37"/>
+
+</svg>

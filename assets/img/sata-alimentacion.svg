@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Conector SATA de alimentación, más ancho y con forma de L">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <path d="M14,36 H186 V82 H104 V104 H14 Z" fill="#222" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/>
+  <rect x="22.0" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="33.2" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="44.4" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="55.599999999999994" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="66.8" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="78.0" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="89.19999999999999" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="100.39999999999999" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="111.6" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="122.8" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="134.0" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="145.2" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="156.39999999999998" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="167.6" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+  <rect x="178.79999999999998" y="44" width="6" height="44" rx="1" fill="#d4af37"/>
+
+</svg>

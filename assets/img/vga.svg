@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Puerto VGA azul en forma de D con tornillos">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <circle cx="16" cy="70" r="7" fill="#999" stroke="#444" stroke-width="1.5"/>
+  <circle cx="184" cy="70" r="7" fill="#999" stroke="#444" stroke-width="1.5"/>
+  <path d="M26,44 H174 L162,98 H38 Z" fill="#2e86de" stroke="#1b4f8a" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M40,54 H160 L152,88 H48 Z" fill="#1f2a36"/>
+  <circle cx="56" cy="60" r="3" fill="#d4af37"/>
+  <circle cx="78" cy="60" r="3" fill="#d4af37"/>
+  <circle cx="100" cy="60" r="3" fill="#d4af37"/>
+  <circle cx="122" cy="60" r="3" fill="#d4af37"/>
+  <circle cx="144" cy="60" r="3" fill="#d4af37"/>
+  <circle cx="56" cy="70" r="3" fill="#d4af37"/>
+  <circle cx="78" cy="70" r="3" fill="#d4af37"/>
+  <circle cx="100" cy="70" r="3" fill="#d4af37"/>
+  <circle cx="122" cy="70" r="3" fill="#d4af37"/>
+  <circle cx="144" cy="70" r="3" fill="#d4af37"/>
+  <circle cx="56" cy="80" r="3" fill="#d4af37"/>
+  <circle cx="78" cy="80" r="3" fill="#d4af37"/>
+  <circle cx="100" cy="80" r="3" fill="#d4af37"/>
+  <circle cx="122" cy="80" r="3" fill="#d4af37"/>
+  <circle cx="144" cy="80" r="3" fill="#d4af37"/>
+
+</svg>

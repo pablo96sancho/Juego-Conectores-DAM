@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Puerto USB-A rectangular, no reversible">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <rect x="30" y="40" width="140" height="60" rx="4" fill="#999" stroke="#444" stroke-width="1.5"/>
+  <rect x="40" y="50" width="120" height="40" rx="2" fill="#1f2a36"/>
+  <rect x="48" y="66" width="104" height="10" rx="0" fill="#2e86de"/>
+  <rect x="56" y="56" width="10" height="6" rx="0" fill="#d4af37"/>
+  <rect x="72" y="56" width="10" height="6" rx="0" fill="#d4af37"/>
+  <rect x="118" y="56" width="10" height="6" rx="0" fill="#d4af37"/>
+  <rect x="134" y="56" width="10" height="6" rx="0" fill="#d4af37"/>
+
+</svg>

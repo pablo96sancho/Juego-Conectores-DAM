@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" role="img" aria-label="Tres conectores jack de 3,5 mm: azul, verde y rosa">
+  <rect width="200" height="140" rx="10" fill="#eef2f5"/>
+  <circle cx="44" cy="70" r="24" fill="#2e86de" stroke="#333" stroke-width="2"/>
+  <circle cx="44" cy="70" r="10" fill="#111"/>
+  <circle cx="44" cy="70" r="5" fill="#555"/>
+  <circle cx="100" cy="70" r="24" fill="#27ae60" stroke="#333" stroke-width="2"/>
+  <circle cx="100" cy="70" r="10" fill="#111"/>
+  <circle cx="100" cy="70" r="5" fill="#555"/>
+  <circle cx="156" cy="70" r="24" fill="#e84393" stroke="#333" stroke-width="2"/>
+  <circle cx="156" cy="70" r="10" fill="#111"/>
+  <circle cx="156" cy="70" r="5" fill="#555"/>
+
+</svg>
