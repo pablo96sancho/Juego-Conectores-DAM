@@ -16,7 +16,7 @@
 
 ## ¿Qué es?
 
-**Connector Poker** es un juego educativo para aprender a identificar los **10 conectores internos y los 10 externos** de un ordenador: cómo se llaman, para qué sirven y dónde van. Se juega una partida de unos 10 minutos contra 2 bots.
+**Connector Poker** es un juego educativo para aprender a identificar los **10 conectores internos y los 10 externos** de un ordenador: cómo se llaman, para qué sirven y dónde van. Se juega una partida de unos 10 minutos contra 2 bots, al estilo **Texas Hold'em**.
 
 Es un proyecto en grupo del módulo **Sistemas Informáticos** (DAM, 1.º, IES La Vereda). El enunciado pedía un juego de diseño propio (Kahoot no valía) cuya mecánica obligara a **pensar**, no solo a memorizar nombres.
 
@@ -25,16 +25,21 @@ Es un proyecto en grupo del módulo **Sistemas Informáticos** (DAM, 1.º, IES L
 Cada conector tiene **4 cartas**: una **Foto**, un **Nombre**, una **Función** y una **Ubicación**. Una mano de poker se forma agrupando cartas *del mismo conector, sea cual sea su tipo*: la foto del HDMI y la función "Vídeo y audio digital" son una pareja, aunque no se parezcan en nada.
 
 <div align="center">
-<img src="docs/img/juego.png" alt="Una mano en juego con dos cartas Trampa" width="520">
+<img src="docs/img/juego.png" alt="Una mano en el turn: 4 cartas descubiertas en la mesa y 2 cartas propias" width="520">
 </div>
 
 **Una mano, paso a paso**
 
-1. Todos pagan 1 ficha de ante y reciben 5 cartas (empiezas con 20 fichas).
-2. **Primera ronda de apuestas:** pasar, apostar (1 o 2 fichas), igualar o retirarse. Una sola subida por jugador y ronda.
-3. **Cambio de cartas:** hasta 3 cartas por otras del mazo.
-4. **Segunda ronda de apuestas.**
-5. **Showdown con reto:** gana la mejor mano, pero antes de cobrar tiene que **demostrar que sabe lo que tiene**.
+Como en el Texas Hold'em, tienes **2 cartas propias** y hay **5 cartas comunes** en la mesa que se van descubriendo. Tu mano es la **mejor combinación de 5 cartas entre las 7**: una carta de la mesa puede formar pareja con una tuya, y también puede ayudar a tus rivales.
+
+1. Todos pagan 1 ficha de ante y reciben 2 cartas (empiezas con 20 fichas).
+2. **Antes del flop:** primera ronda de apuestas, solo con tus 2 cartas.
+3. **Flop:** se descubren 3 cartas de la mesa. Otra ronda de apuestas.
+4. **Turn:** se descubre la 4.ª carta. Otra ronda.
+5. **River:** se descubre la 5.ª carta. Última ronda.
+6. **Showdown con reto:** gana la mejor mano, pero antes de cobrar tiene que **demostrar que sabe lo que tiene**.
+
+En cada ronda puedes pasar, apostar (1 o 2 fichas), igualar o retirarte, con una sola subida por jugador y ronda.
 
 ### El reto del showdown: la mecánica propia del juego
 
@@ -138,10 +143,10 @@ flowchart LR
 | Módulo | Qué hace |
 |---|---|
 | [`deck.js`](js/deck.js) | Construye la baraja de 90 cartas (80 de conector, 6 Trampa, 2 comodines USB, 2 Anti-error), baraja y reparte. |
-| [`hands.js`](js/hands.js) | `evaluateHand(cartas)` calcula el rango, los desempates y qué carta especial cuenta. `compareHands` decide quién gana. |
+| [`hands.js`](js/hands.js) | `evaluateHand` calcula el rango, los desempates y qué carta especial cuenta en 5 cartas. `bestHand` encuentra la mejor mano de 5 entre las 7 disponibles. `compareHands` decide quién gana. |
 | [`showdown.js`](js/showdown.js) | Genera los retos de 3 opciones (con distractores de conectores parecidos) y los corrige. |
-| [`bots.js`](js/bots.js) | IA sencilla: apuestan según el rango de su mano, conservan sus grupos al cambiar cartas y superan el reto con probabilidad configurable (0,8). |
-| [`game.js`](js/game.js) | Máquina de estados de la partida: apuestas, cambio de cartas, showdown, fichas y fin de partida. |
+| [`bots.js`](js/bots.js) | IA sencilla: apuestan según el rango de su mejor mano y la ronda (antes del flop casi nunca se retiran) y superan el reto con probabilidad configurable (0,8). |
+| [`game.js`](js/game.js) | Máquina de estados de la partida: rondas de apuestas, mesa, showdown, fichas y fin de partida. |
 | [`ranking.js`](js/ranking.js) | Ranking de las 10 mejores partidas en `localStorage`. |
 | [`main.js`](js/main.js) | Pantallas, eventos y conexión con el DOM. Es la única parte que toca la página. |
 
@@ -149,23 +154,26 @@ Una mano es una máquina de estados:
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Apuestas1
-    Apuestas1 --> Cambio: todos han actuado
-    Cambio --> Apuestas2
-    Apuestas2 --> Showdown: todos han actuado
-    Apuestas1 --> FinDeMano: todos se retiran menos uno
-    Apuestas2 --> FinDeMano: todos se retiran menos uno
+    [*] --> AntesDelFlop
+    AntesDelFlop --> Flop: todos han actuado
+    Flop --> Turn: todos han actuado
+    Turn --> River: todos han actuado
+    River --> Showdown: todos han actuado
+    AntesDelFlop --> FinDeMano: todos se retiran menos uno
+    Flop --> FinDeMano: todos se retiran menos uno
+    Turn --> FinDeMano: todos se retiran menos uno
+    River --> FinDeMano: todos se retiran menos uno
     Showdown --> Reto: le toca al humano
     Reto --> Showdown: respuesta corregida
     Showdown --> FinDeMano: alguien supera el reto o nadie lo supera
-    FinDeMano --> Apuestas1: siguiente mano
+    FinDeMano --> AntesDelFlop: siguiente mano
     FinDeMano --> [*]: 8 manos o sin fichas
 ```
 
 ### Decisiones de diseño que merece la pena contar
 
 - **Lógica pura e inyectable.** `deck.js`, `hands.js`, `showdown.js`, `bots.js` y `game.js` no tocan el DOM, y el azar (`rng`) se pasa como parámetro. Así los tests son deterministas y se pueden simular partidas enteras.
-- **Las cartas especiales se evalúan probando todas las sustituciones.** `evaluateHand` prueba cada forma legal de usar la Trampa o un comodín y se queda con la mejor. Solo la usa si **sube el rango**: no tiene sentido obligar a justificar una carta para ganar un simple desempate.
+- **La mejor mano de 7 cartas.** `bestHand` prueba las 21 combinaciones de 5 cartas, y `evaluateHand` prueba cada forma legal de usar la Trampa o un comodín. Una carta especial solo se usa si **sube el rango**: no tiene sentido obligar a justificar una carta para ganar un simple desempate. A igualdad, se prefiere la combinación que no la usa.
 - **Un grupo nunca pasa de 4 cartas.** Un comodín solo puede ocupar un tipo (Foto, Nombre, Función, Ubicación) que el conector aún no tenga.
 - **Apuestas que siempre se pueden igualar.** Ninguna apuesta supera las fichas que le quedan a otro jugador, así que no hacen falta botes laterales.
 - **Imágenes propias en SVG.** Las 20 ilustraciones están dibujadas a mano en código, con las formas anti-error reales (la L del SATA, la muesca del M.2, la esquina cortada del DisplayPort…). Pesan pocos KB y no hay problemas de licencia.
@@ -173,12 +181,12 @@ stateDiagram-v2
 
 ### Tests
 
-**62 tests** con `node --test` que cubren:
+**70 tests** con `node --test` que cubren:
 
-- Los 7 rangos, los desempates, la Trampa y los comodines.
+- Los 7 rangos, los desempates, la Trampa y los comodines, y la mejor mano entre 7 cartas.
 - La composición de la baraja.
 - Las preguntas de los retos y su corrección.
-- El motor de la partida: apuestas, retiradas, empates, penalización y bote acumulado.
+- El motor de la partida: apuestas, rondas de la mesa, retiradas, empates, penalización y bote acumulado.
 - El ranking, incluido el caso de que `localStorage` esté bloqueado.
 - Una **simulación de 200 partidas completas** que comprueba en cada paso que las fichas se conservan y que ninguna partida se queda atascada.
 

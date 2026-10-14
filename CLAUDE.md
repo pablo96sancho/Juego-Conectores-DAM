@@ -149,14 +149,23 @@ connector-poker/
 - **6 cartas Trampa:** función ambigua que encaja con dos conectores parecidos. Pares: HDMI/DisplayPort, VGA/DVI, USB-A/USB-C, SATA datos/M.2, ATX 24/EPS 4+4, PCIe 6+2/EPS 4+4.
 - **2 comodines USB** y **2 comodines Anti-error**.
 
-### Desarrollo de una mano
+### Desarrollo de una mano (estilo Texas Hold'em)
+
+Cada jugador tiene **2 cartas propias** y hay **5 cartas comunes** en la mesa, que se descubren por rondas. La mano de cada jugador es la **mejor combinación de 5 cartas entre sus 7** (2 propias + 5 de la mesa). No hay cambio de cartas.
 
 1. Cada jugador empieza con 20 fichas y paga 1 de ante al bote.
-2. Se reparten 5 cartas a cada jugador.
-3. Primera ronda de apuestas: pasar, apostar (máximo 2 fichas), igualar o retirarse. Máximo una subida por jugador y ronda.
-4. Cada jugador puede cambiar hasta 3 cartas con el mazo.
-5. Segunda ronda de apuestas.
-6. Showdown con justificación (ver más abajo). Quien gana se lleva el bote.
+2. Se reparten 2 cartas a cada jugador.
+3. **Antes del flop:** ronda de apuestas con solo las 2 cartas propias.
+4. **Flop:** se descubren 3 cartas de la mesa. Ronda de apuestas.
+5. **Turn:** se descubre la 4.ª carta. Ronda de apuestas.
+6. **River:** se descubre la 5.ª carta. Última ronda de apuestas.
+7. Showdown con justificación (ver más abajo). Quien gana se lleva el bote.
+
+En cada ronda de apuestas: pasar, apostar (1 o 2 fichas), igualar o retirarse. Máximo una subida por jugador y ronda. Ninguna apuesta puede superar las fichas que le quedan a otro jugador (así nunca hacen falta botes laterales). Si todos se retiran menos uno, ese jugador gana el bote sin showdown ni reto.
+
+### Duración de la partida
+
+La partida dura **8 manos** como máximo, o hasta que algún jugador se queda sin fichas. El resultado (fichas finales del jugador humano) se guarda en el ranking local.
 
 ### Ranking de manos (de menor a mayor)
 
@@ -181,13 +190,14 @@ Gana el rango más alto. Si empatan, se compara el `id` del conector del grupo p
 - **Trampa:** cuenta como carta de **Función** de cualquiera de los dos conectores de su par. Para que cuente en el showdown hay que explicar la diferencia entre ambos conectores.
 - **Comodín USB:** sustituye a cualquier carta de USB-A o USB-C. Para usarlo hay que decir la velocidad de la versión de USB que se pregunte.
 - **Comodín Anti-error:** sustituye a cualquier carta de un conector interno (ids 1 a 10). Para usarlo hay que explicar su característica anti-error.
-- Máximo **una** carta especial cuenta por mano. Las demás se tratan como cartas sin valor.
+- Máximo **una** carta especial cuenta por mano, y solo si **sube el rango** de la mano (no se usa para ganar un simple desempate). Las demás se tratan como cartas sin valor. Un comodín solo puede ocupar un tipo de carta (Foto, Nombre, Función o Ubicación) que ese conector aún no tenga en la mano: un grupo nunca pasa de 4.
 
 ### Showdown con justificación
 
 Quien tiene la mejor mano debe superar un reto antes de cobrar:
 
-- **Digital:** 2 preguntas tipo test (3 opciones) sobre los conectores de su combinación. Ejemplos: "¿Cuál es la función de X?", "¿Dónde va X?". Los distractores se sacan de conectores parecidos (mismo tipo o misma ubicación). Si usa una carta especial, se pregunta la diferencia entre los dos conectores, la velocidad USB o la característica anti-error.
+- **Digital:** 2 preguntas tipo test (3 opciones) sobre los conectores de su combinación: la función y la ubicación del conector principal (en doble pareja y full, la segunda pregunta es sobre el segundo grupo). Los distractores se sacan de conectores parecidos (mismo tipo o misma ubicación). Si usa una carta especial se añade una **tercera pregunta**: la diferencia entre los dos conectores (Trampa), la velocidad USB o la característica anti-error. Hay que acertar todas.
+- **Empates:** si varios jugadores empatan en la mejor mano, cada uno hace su reto y los que lo superan se reparten el bote.
 - **Si falla:** pierde 2 fichas (van al bote) y el reto pasa al siguiente mejor jugador. Si nadie lo supera, el bote se acumula a la mano siguiente.
 - **Bots:** superan el reto con probabilidad configurable (por defecto 0,8).
 
@@ -197,7 +207,7 @@ Entregar siempre algo que funcione. No empezar una fase sin cerrar la anterior.
 
 1. **Fase 0, base:** repositorio, `index.html`, `data/conectores.json` con los 20 conectores y fotos libres con `CREDITS.md` (autor, licencia, URL).
 2. **Fase 1, lógica:** `deck.js` y `hands.js` con tests. Cubrir los 7 rangos, desempates, Trampa y comodines. Modo práctica: se reparten 5 cartas y se muestra qué mano forman.
-3. **Fase 2, partida:** `game.js`, apuestas, cambio de cartas y showdown con retos contra 2 bots.
+3. **Fase 2, partida:** `game.js`, apuestas por rondas (antes del flop, flop, turn y river) y showdown con retos contra 2 bots.
 4. **Fase 3, extras:** comodines y Trampa en la UI, retos de velocidades USB y anti-error, ranking local, ayuda con el ranking de manos.
 5. **Fase 4, pulido:** diseño responsive, accesibilidad, pruebas con compañeros, despliegue en GitHub Pages y capturas para la memoria.
 
