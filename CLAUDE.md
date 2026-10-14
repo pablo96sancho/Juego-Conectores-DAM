@@ -84,25 +84,25 @@ connector-poker/
 
 | id | Nombre | Tipo | Función | Ubicación |
 |---|---|---|---|---|
-| 1 | ATX 24 pines | interno | Alimentación de la placa base | Placa base ← fuente |
-| 2 | EPS 4+4 pines | interno | Alimentación de la CPU | Placa base ← fuente |
+| 1 | ATX 24 pines | interno | Alimentación de la placa base | Placa base, borde junto a la RAM ← fuente |
+| 2 | EPS 4+4 pines | interno | Alimentación de la CPU | Placa base, esquina junto a la CPU ← fuente |
 | 3 | PCIe 6+2 pines | interno | Alimentación de la tarjeta gráfica | Gráfica ← fuente |
 | 4 | SATA datos | interno | Datos de discos HDD/SSD | Placa base ↔ disco |
 | 5 | SATA alimentación | interno | Alimentación de discos | Disco ← fuente |
-| 6 | M.2 | interno | SSD NVMe/SATA, tarjetas wifi | Placa base |
-| 7 | Ranura PCIe x16 / x1 | interno | Tarjetas de expansión | Placa base |
-| 8 | Ranura DIMM | interno | Módulos de memoria RAM | Placa base |
-| 9 | Socket CPU | interno | Procesador | Placa base |
-| 10 | Panel frontal (F_PANEL) | interno | Botón de encendido, reset, LEDs | Placa base |
-| 11 | USB-A (2.0 / 3.x) | externo | Periféricos y almacenamiento | Panel trasero/frontal |
-| 12 | USB-C | externo | Datos, vídeo y carga | Panel trasero/frontal |
-| 13 | HDMI | externo | Vídeo y audio digital | Placa base o gráfica |
-| 14 | DisplayPort | externo | Vídeo digital de alta resolución | Placa base o gráfica |
-| 15 | VGA | externo | Vídeo analógico (antiguo) | Panel trasero |
-| 16 | DVI | externo | Vídeo digital/analógico (antiguo) | Panel trasero |
-| 17 | RJ45 | externo | Red Ethernet | Panel trasero |
-| 18 | Jack 3,5 mm | externo | Audio: salida, micrófono, línea | Panel trasero/frontal |
-| 19 | PS/2 | externo | Teclado y ratón (antiguo) | Panel trasero |
+| 6 | M.2 | interno | SSD NVMe/SATA, tarjetas wifi | Placa base, entre la CPU y la ranura PCIe |
+| 7 | Ranura PCIe x16 / x1 | interno | Tarjetas de expansión | Placa base, parte inferior (ranuras largas) |
+| 8 | Ranura DIMM | interno | Módulos de memoria RAM | Placa base, a un lado de la CPU |
+| 9 | Socket CPU | interno | Procesador | Placa base, centro (bajo el disipador) |
+| 10 | Panel frontal (F_PANEL) | interno | Botón de encendido, reset, LEDs | Placa base, borde inferior (cables de la caja) |
+| 11 | USB-A (2.0 / 3.x) | externo | Periféricos y almacenamiento | Panel trasero (varios) y frontal |
+| 12 | USB-C | externo | Datos, vídeo y carga | Panel frontal y trasero (suele haber 1 o 2) |
+| 13 | HDMI | externo | Vídeo y audio digital | Placa base o gráfica: salida a monitor o TV |
+| 14 | DisplayPort | externo | Vídeo digital de alta resolución | Placa base o gráfica: salida a monitor de alta resolución |
+| 15 | VGA | externo | Vídeo analógico (antiguo) | Panel trasero, salida de vídeo azul (antigua) |
+| 16 | DVI | externo | Vídeo digital/analógico (antiguo) | Panel trasero, salida de vídeo blanca (antigua) |
+| 17 | RJ45 | externo | Red Ethernet | Panel trasero, entrada de red |
+| 18 | Jack 3,5 mm | externo | Audio: salida, micrófono, línea | Panel trasero (3 jacks de colores) y frontal |
+| 19 | PS/2 | externo | Teclado y ratón (antiguo) | Panel trasero, zona de teclado y ratón |
 | 20 | IEC C13/C14 | externo | Alimentación eléctrica de la fuente | Fuente |
 
 ### Campo `antiError` (puntos extra)

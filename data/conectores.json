@@ -4,7 +4,7 @@
     "nombre": "ATX 24 pines",
     "tipo": "interno",
     "funcion": "Alimentación de la placa base",
-    "ubicacion": "Placa base ← fuente",
+    "ubicacion": "Placa base, borde junto a la RAM ← fuente",
     "antiError": "Carcasa asimétrica con clip de bloqueo: solo entra en una posición",
     "imagen": "assets/img/atx-24-pines.svg"
   },
@@ -13,7 +13,7 @@
     "nombre": "EPS 4+4 pines",
     "tipo": "interno",
     "funcion": "Alimentación de la CPU",
-    "ubicacion": "Placa base ← fuente",
+    "ubicacion": "Placa base, esquina junto a la CPU ← fuente",
     "antiError": "Carcasa con formas asimétricas y clip de bloqueo",
     "imagen": "assets/img/eps-4-4-pines.svg"
   },
@@ -49,7 +49,7 @@
     "nombre": "M.2",
     "tipo": "interno",
     "funcion": "SSD NVMe/SATA, tarjetas wifi",
-    "ubicacion": "Placa base",
+    "ubicacion": "Placa base, entre la CPU y la ranura PCIe",
     "antiError": "Muesca (key B, M o B+M) que limita en qué ranuras entra",
     "imagen": "assets/img/m2.svg"
   },
@@ -58,7 +58,7 @@
     "nombre": "Ranura PCIe x16 / x1",
     "tipo": "interno",
     "funcion": "Tarjetas de expansión",
-    "ubicacion": "Placa base",
+    "ubicacion": "Placa base, parte inferior (ranuras largas)",
     "antiError": "Muesca a un lado que impide insertar la tarjeta al revés",
     "imagen": "assets/img/ranura-pcie.svg"
   },
@@ -67,7 +67,7 @@
     "nombre": "Ranura DIMM",
     "tipo": "interno",
     "funcion": "Módulos de memoria RAM",
-    "ubicacion": "Placa base",
+    "ubicacion": "Placa base, a un lado de la CPU",
     "antiError": "Muesca descentrada y clips laterales; cada generación DDR cambia la posición de la muesca",
     "imagen": "assets/img/ranura-dimm.svg"
   },
@@ -76,7 +76,7 @@
     "nombre": "Socket CPU",
     "tipo": "interno",
     "funcion": "Procesador",
-    "ubicacion": "Placa base",
+    "ubicacion": "Placa base, centro (bajo el disipador)",
     "antiError": "Triángulo de alineación en una esquina y muescas asimétricas",
     "imagen": "assets/img/socket-cpu.svg"
   },
@@ -85,7 +85,7 @@
     "nombre": "Panel frontal (F_PANEL)",
     "tipo": "interno",
     "funcion": "Botón de encendido, reset, LEDs",
-    "ubicacion": "Placa base",
+    "ubicacion": "Placa base, borde inferior (cables de la caja)",
     "antiError": "Cabecera con un pin ausente (key) y cables etiquetados con polaridad",
     "imagen": "assets/img/panel-frontal.svg"
   },
@@ -94,7 +94,7 @@
     "nombre": "USB-A (2.0 / 3.x)",
     "tipo": "externo",
     "funcion": "Periféricos y almacenamiento",
-    "ubicacion": "Panel trasero/frontal",
+    "ubicacion": "Panel trasero (varios) y frontal",
     "antiError": "Rectangular y no reversible: solo entra en una posición",
     "imagen": "assets/img/usb-a.svg"
   },
@@ -103,7 +103,7 @@
     "nombre": "USB-C",
     "tipo": "externo",
     "funcion": "Datos, vídeo y carga",
-    "ubicacion": "Panel trasero/frontal",
+    "ubicacion": "Panel frontal y trasero (suele haber 1 o 2)",
     "antiError": "Reversible (simétrico 180°): no necesita orientación",
     "imagen": "assets/img/usb-c.svg"
   },
@@ -112,7 +112,7 @@
     "nombre": "HDMI",
     "tipo": "externo",
     "funcion": "Vídeo y audio digital",
-    "ubicacion": "Placa base o gráfica",
+    "ubicacion": "Placa base o gráfica: salida a monitor o TV",
     "antiError": "Forma de trapecio con dos esquinas achaflanadas",
     "imagen": "assets/img/hdmi.svg"
   },
@@ -121,7 +121,7 @@
     "nombre": "DisplayPort",
     "tipo": "externo",
     "funcion": "Vídeo digital de alta resolución",
-    "ubicacion": "Placa base o gráfica",
+    "ubicacion": "Placa base o gráfica: salida a monitor de alta resolución",
     "antiError": "Una esquina cortada (achaflanada)",
     "imagen": "assets/img/displayport.svg"
   },
@@ -130,7 +130,7 @@
     "nombre": "VGA",
     "tipo": "externo",
     "funcion": "Vídeo analógico (antiguo)",
-    "ubicacion": "Panel trasero",
+    "ubicacion": "Panel trasero, salida de vídeo azul (antigua)",
     "antiError": "Forma de D con tornillos de sujeción",
     "imagen": "assets/img/vga.svg"
   },
@@ -139,7 +139,7 @@
     "nombre": "DVI",
     "tipo": "externo",
     "funcion": "Vídeo digital/analógico (antiguo)",
-    "ubicacion": "Panel trasero",
+    "ubicacion": "Panel trasero, salida de vídeo blanca (antigua)",
     "antiError": "Forma de D con tornillos y pin plano distintivo",
     "imagen": "assets/img/dvi.svg"
   },
@@ -148,7 +148,7 @@
     "nombre": "RJ45",
     "tipo": "externo",
     "funcion": "Red Ethernet",
-    "ubicacion": "Panel trasero",
+    "ubicacion": "Panel trasero, entrada de red",
     "antiError": "Pestaña de plástico (clip) y forma asimétrica",
     "imagen": "assets/img/rj45.svg"
   },
@@ -157,7 +157,7 @@
     "nombre": "Jack 3,5 mm",
     "tipo": "externo",
     "funcion": "Audio: salida, micrófono, línea",
-    "ubicacion": "Panel trasero/frontal",
+    "ubicacion": "Panel trasero (3 jacks de colores) y frontal",
     "antiError": "Sin muesca: se evita el error con el código de colores (verde salida, rosa micrófono, azul línea)",
     "imagen": "assets/img/jack-35.svg"
   },
@@ -166,7 +166,7 @@
     "nombre": "PS/2",
     "tipo": "externo",
     "funcion": "Teclado y ratón (antiguo)",
-    "ubicacion": "Panel trasero",
+    "ubicacion": "Panel trasero, zona de teclado y ratón",
     "antiError": "Mini-DIN con guía y código de colores (violeta teclado, verde ratón)",
     "imagen": "assets/img/ps2.svg"
   },

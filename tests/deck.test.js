@@ -11,6 +11,12 @@ test('el JSON tiene 10 internos y 10 externos', () => {
   assert.equal(connectors.filter(c => c.tipo === 'externo').length, 10);
 });
 
+test('cada conector tiene una función y una ubicación distintas de las de los demás', () => {
+  for (const campo of ['nombre', 'funcion', 'ubicacion']) {
+    assert.equal(new Set(connectors.map(c => c[campo])).size, 20, `${campo} repetido`);
+  }
+});
+
 test('la baraja tiene 90 cartas con uid único', () => {
   const deck = buildDeck(connectors);
   assert.equal(deck.length, 90);
