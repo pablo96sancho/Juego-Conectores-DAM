@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateHand, compareHands } from '../js/hands.js';
+import { evaluateHand, compareHands, bestHand } from '../js/hands.js';
 
 const c = (connectorId, type) => ({ kind: 'conector', connectorId, type });
 const trampa = (a, b) => ({ kind: 'trampa', pair: [a, b] });
@@ -184,4 +184,45 @@ test('el especial no se usa solo para ganar un desempate', () => {
   const h = evaluateHand([c(15, 'foto'), c(15, 'nombre'), c(13, 'foto'), c(17, 'foto'), anti]);
   assert.equal(h.rank, 1); // sigue siendo pareja
   assert.equal(h.special, null);
+});
+
+// Mejor mano con 7 cartas (2 de la mano + 5 de la mesa)
+test('bestHand con 5 cartas o menos equivale a evaluateHand', () => {
+  assert.equal(bestHand(highCard).rank, 0);
+  assert.equal(bestHand([c(4, 'foto'), c(4, 'nombre')]).rank, 1);
+  assert.equal(bestHand([]).rank, 0);
+});
+
+test('bestHand encuentra un póker escondido entre 7 cartas', () => {
+  const h = bestHand([c(1, 'foto'), c(7, 'foto'), c(3, 'nombre'), c(7, 'nombre'), c(7, 'funcion'), c(9, 'foto'), c(7, 'ubicacion')]);
+  assert.equal(h.rank, 5);
+  assert.equal(h.mainConnectorId, 7);
+  assert.equal(h.used.length, 5);
+});
+
+test('bestHand elige el mejor kicker entre 7 cartas', () => {
+  const h = bestHand([c(4, 'foto'), c(4, 'nombre'), c(1, 'foto'), c(2, 'foto'), c(3, 'foto'), c(19, 'foto'), c(18, 'foto')]);
+  assert.equal(h.rank, 1);
+  assert.deepEqual(h.tiebreak, [4, 19, 18, 3]);
+});
+
+test('bestHand encuentra la escalera de energía entre 7 cartas', () => {
+  const h = bestHand([...[20, 1, 2, 3, 5].map(id => c(id, 'nombre')), c(8, 'foto'), c(12, 'foto')]);
+  assert.equal(h.rank, 6);
+});
+
+test('bestHand usa una carta especial solo si hace falta', () => {
+  // Póker de 8 sin especial: no debe elegir la combinación con el comodín
+  const sinEspecial = bestHand([c(8, 'foto'), c(8, 'nombre'), c(8, 'funcion'), c(8, 'ubicacion'), anti, c(15, 'foto'), c(2, 'foto')]);
+  assert.equal(sinEspecial.rank, 5);
+  assert.equal(sinEspecial.special, null);
+  // Con el comodín se completa un póker que sin él sería trío
+  const conEspecial = bestHand([c(8, 'foto'), c(8, 'nombre'), c(8, 'funcion'), anti, c(15, 'foto'), c(17, 'foto'), c(13, 'foto')]);
+  assert.equal(conEspecial.rank, 5);
+  assert.ok(conEspecial.special);
+});
+
+test('bestHand: solo cuenta una carta especial aunque haya varias entre las 7', () => {
+  const h = bestHand([c(8, 'foto'), anti, anti, usb, c(15, 'foto'), c(17, 'foto'), c(13, 'foto')]);
+  assert.equal(h.rank, 1); // pareja de 8 con un solo comodín
 });

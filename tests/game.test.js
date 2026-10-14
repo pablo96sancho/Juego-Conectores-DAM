@@ -2,11 +2,11 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
-  createGame, applyBetting, applyDraw, submitChallenge, nextHand, runBots, beginShowdown,
-  legalActions, START_CHIPS,
+  createGame, applyBetting, submitChallenge, nextHand, runBots, beginShowdown,
+  legalActions, visibleBoard, START_CHIPS,
 } from '../js/game.js';
-import { botBetAction, botDiscards } from '../js/bots.js';
-import { evaluateHand } from '../js/hands.js';
+import { botBetAction } from '../js/bots.js';
+import { evaluateHand, bestHand } from '../js/hands.js';
 
 const connectors = JSON.parse(readFileSync(new URL('../data/conectores.json', import.meta.url)));
 const c = (connectorId, type) => ({ kind: 'conector', connectorId, type });
@@ -24,16 +24,25 @@ function seeded(seed) {
 const total = g => g.players.reduce((s, p) => s + p.chips, 0) + g.pot;
 const newGame = (opts = {}) => createGame({ connectors, rng: seeded(1), ...opts });
 
-test('la mano empieza con ante, 5 cartas y turno del humano', () => {
+test('la mano empieza con ante, 2 cartas por jugador, mesa oculta y turno del humano', () => {
   const g = newGame();
   assert.equal(g.players.length, 3);
   for (const p of g.players) {
     assert.equal(p.chips, START_CHIPS - 1);
-    assert.equal(p.hand.length, 5);
+    assert.equal(p.hand.length, 2);
   }
+  assert.equal(g.board.length, 5);
+  assert.equal(visibleBoard(g).length, 0);
   assert.equal(g.pot, 3);
-  assert.equal(g.phase, 'betting1');
+  assert.equal(g.phase, 'betting');
+  assert.equal(g.stage, 0);
   assert.equal(g.turn, 0);
+});
+
+test('las 2 cartas de cada jugador y las 5 de la mesa son todas distintas', () => {
+  const g = newGame();
+  const uids = [...g.players.flatMap(p => p.hand), ...g.board].map(c => c.uid);
+  assert.equal(new Set(uids).size, uids.length);
 });
 
 test('no se puede pasar con una apuesta pendiente ni actuar fuera de turno', () => {
@@ -54,8 +63,8 @@ test('apostar máximo 2 y una sola subida por jugador y ronda', () => {
   assert.equal(legalActions(g, 0).canBet, false);
   assert.throws(() => applyBetting(g, 0, { type: 'bet', amount: 1 }), /no permitida/);
   applyBetting(g, 0, { type: 'call' });
-  // Todos han igualado 3 fichas: la ronda se cierra y empieza el cambio de cartas
-  assert.equal(g.phase, 'draw');
+  // Todos han igualado 3 fichas: la ronda se cierra y se descubre el flop
+  assert.equal(g.stage, 1);
   assert.equal(g.pot, 3 + 3 * 3);
 });
 
@@ -70,26 +79,36 @@ test('si todos se retiran gana el último sin showdown', () => {
   assert.equal(total(g), 3 * START_CHIPS);
 });
 
-test('todos pasan: se cambian cartas y empieza la segunda ronda', () => {
+test('todos pasan en cada ronda: flop, turn, river y showdown', () => {
+  const g = newGame({ botPassProb: 1 });
+  const vistas = [];
+  for (let ronda = 0; ronda < 4; ronda++) {
+    assert.equal(g.phase, 'betting');
+    assert.equal(g.stage, ronda);
+    vistas.push(visibleBoard(g).length);
+    for (const id of [0, 1, 2]) applyBetting(g, id, { type: 'check' });
+  }
+  assert.deepEqual(vistas, [0, 3, 4, 5]);
+  assert.notEqual(g.phase, 'betting'); // hay showdown
+  assert.equal(visibleBoard(g).length, 5);
+});
+
+test('un jugador retirado ya no actúa en las rondas siguientes', () => {
   const g = newGame();
-  for (const id of [0, 1, 2]) applyBetting(g, id, { type: 'check' });
-  assert.equal(g.phase, 'draw');
-  const before = g.players[0].hand.map(x => x.uid);
-  applyDraw(g, 0, [0, 1]);
-  const after = g.players[0].hand.map(x => x.uid);
-  assert.notEqual(before[0], after[0]);
-  assert.equal(before[4], after[4]);
-  assert.throws(() => applyDraw(g, 1, [0, 1, 2, 3]), /no permitido/);
-  applyDraw(g, 1, []);
-  applyDraw(g, 2, [0, 1, 2]);
-  assert.equal(g.phase, 'betting2');
-  assert.equal(g.players[0].hand.length, 5);
+  applyBetting(g, 0, { type: 'check' });
+  applyBetting(g, 1, { type: 'fold' });
+  applyBetting(g, 2, { type: 'check' });
+  assert.equal(g.stage, 1);
+  assert.equal(g.turn, 0);
+  applyBetting(g, 0, { type: 'check' });
+  assert.equal(g.turn, 2); // salta al bot 1, que está retirado
 });
 
 // Prepara un showdown directo con manos fijas
 function showdownSetup(hands, opts) {
   const g = newGame(opts);
   hands.forEach((h, i) => { g.players[i].hand = h; });
+  g.board = []; // los tests prueban manos de 5 cartas sin mesa
   g.pot = 10;
   g.players.forEach(p => { p.chips = START_CHIPS - 1; });
   beginShowdown(g);
@@ -141,23 +160,19 @@ test('showdown: empate entre bots, los que superan el reto reparten el bote', ()
   assert.equal(g.players[2].chips, START_CHIPS - 1 + 5);
 });
 
-test('los bots evalúan y descartan sin romper reglas', () => {
-  assert.ok(botDiscards(pair4).length <= 3);
-  assert.deepEqual(botDiscards(pair4).sort(), [2, 3, 4]);
-  assert.equal(botDiscards([c(1, 'foto'), c(1, 'nombre'), c(1, 'funcion'), c(1, 'ubicacion'), c(2, 'foto')]).length, 1);
+test('los bots apuestan fuerte con manos fuertes y no se retiran antes del flop por poco', () => {
   const legal = { toCall: 0, canCheck: true, canBet: true, maxBet: 2 };
   assert.equal(botBetAction(evaluateHand(poker7), legal, () => 0).type, 'bet');
+  const enContra = { toCall: 2, canCheck: false, canBet: false, maxBet: 0 };
+  assert.equal(botBetAction(evaluateHand(high), enContra, () => 0.9, 0).type, 'call');
+  assert.equal(botBetAction(evaluateHand(high), enContra, () => 0.9, 3).type, 'fold');
 });
 
 // Humano automático para simular partidas completas
 function playHuman(g, rng) {
   switch (g.phase) {
-    case 'betting1':
-    case 'betting2':
-      applyBetting(g, 0, botBetAction(evaluateHand(g.players[0].hand), legalActions(g, 0), rng));
-      break;
-    case 'draw':
-      applyDraw(g, 0, botDiscards(g.players[0].hand));
+    case 'betting':
+      applyBetting(g, 0, botBetAction(bestHand([...g.players[0].hand, ...visibleBoard(g)]), legalActions(g, 0), rng, g.stage));
       break;
     case 'challenge':
       submitChallenge(g, g.challenge.questions.map(q => (rng() < 0.7 ? q.correctIndex : (q.correctIndex + 1) % 3)));

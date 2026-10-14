@@ -1,16 +1,20 @@
-// Estado de la partida: rondas, apuestas, cambio de cartas, showdown y fichas.
+// Estado de la partida (estilo Texas Hold'em): rondas, apuestas, mesa, showdown y fichas.
 // Sin DOM. El jugador humano es siempre el id 0; los bots se juegan con runBots().
 import { buildDeck, shuffle } from './deck.js';
-import { evaluateHand, compareHands } from './hands.js';
+import { bestHand, compareHands } from './hands.js';
 import { buildChallenge, gradeChallenge } from './showdown.js';
-import { botBetAction, botDiscards, botPassesChallenge } from './bots.js';
+import { botBetAction, botPassesChallenge } from './bots.js';
 
 export const START_CHIPS = 20;
 export const ANTE = 1;
 export const MAX_BET = 2;
-export const MAX_DISCARD = 3;
 export const FAIL_PENALTY = 2;
-export const HAND_SIZE = 5;
+export const HOLE_SIZE = 2;   // cartas de cada jugador
+export const BOARD_SIZE = 5;  // cartas comunes de la mesa
+
+// Rondas de apuestas y cartas de la mesa visibles en cada una
+export const STAGES = ['Antes del flop', 'Flop', 'Turn', 'River'];
+const VISIBLE_BY_STAGE = [0, 3, 4, 5];
 
 const inHand = p => !p.out && !p.folded;
 
@@ -48,8 +52,8 @@ export function createGame({
       id, name, isBot: id > 0, chips: START_CHIPS, hand: [], folded: false, out: false,
       contrib: 0, raised: false, acted: false, evaluation: null,
     })),
-    deck: [], pot: 0, handNumber: 0, firstToAct: -1,
-    phase: 'betting1', turn: 0, currentBet: 0,
+    deck: [], board: [], revealed: 0, stage: 0, pot: 0, handNumber: 0, firstToAct: -1,
+    phase: 'betting', turn: 0, currentBet: 0,
     sd: null, challenge: null, lastGrade: null, result: null, reveal: [], standings: null, log: [],
   };
   startHand(g);
@@ -71,9 +75,12 @@ export function startHand(g) {
     p.evaluation = null;
     p.chips -= ANTE;
     g.pot += ANTE;
-    p.hand = g.deck.splice(0, HAND_SIZE);
+    p.hand = g.deck.splice(0, HOLE_SIZE);
   }
-  g.phase = 'betting1';
+  g.board = g.deck.splice(0, BOARD_SIZE);
+  g.revealed = 0;
+  g.stage = 0;
+  g.phase = 'betting';
   startBettingRound(g);
 }
 
@@ -106,7 +113,7 @@ function pay(g, p, amount) {
 }
 
 export function applyBetting(g, pid, action) {
-  if (g.phase !== 'betting1' && g.phase !== 'betting2') throw new Error('No es una ronda de apuestas');
+  if (g.phase !== 'betting') throw new Error('No es una ronda de apuestas');
   if (g.turn !== pid) throw new Error('No es su turno');
   const p = g.players[pid];
   const legal = legalActions(g, pid);
@@ -147,38 +154,26 @@ export function applyBetting(g, pid, action) {
   advance(g, pid);
 }
 
-// Pasa el turno al siguiente que debe actuar o cierra la fase
+// Pasa el turno al siguiente que debe actuar o cierra la ronda
 function advance(g, pid) {
   const next = nextWhere(g, pid + 1, p => inHand(p) && !p.acted);
   if (next !== null) {
     g.turn = next;
     return;
   }
-  if (g.phase === 'betting1') {
-    g.phase = 'draw';
-    for (const p of g.players.filter(inHand)) p.acted = false;
-    g.turn = nextWhere(g, g.firstToAct, inHand);
-  } else if (g.phase === 'draw') {
-    g.phase = 'betting2';
+  if (g.stage < STAGES.length - 1) {
+    g.stage++;
+    g.revealed = VISIBLE_BY_STAGE[g.stage];
+    say(g, `${STAGES[g.stage]}: se ${g.revealed === 3 ? 'descubren 3 cartas' : 'descubre 1 carta'} de la mesa.`);
     startBettingRound(g);
   } else {
     beginShowdown(g);
   }
 }
 
-// Cambia las cartas de las posiciones `indexes` (máximo 3) con el mazo
-export function applyDraw(g, pid, indexes) {
-  if (g.phase !== 'draw') throw new Error('No es el momento de cambiar cartas');
-  if (g.turn !== pid) throw new Error('No es su turno');
-  const unique = [...new Set(indexes)];
-  if (unique.length > MAX_DISCARD || unique.some(i => !Number.isInteger(i) || i < 0 || i >= HAND_SIZE)) {
-    throw new Error('Cambio de cartas no permitido');
-  }
-  const p = g.players[pid];
-  for (const i of unique) p.hand[i] = g.deck.shift();
-  p.acted = true;
-  say(g, unique.length ? `${p.name} cambia ${unique.length} carta${unique.length > 1 ? 's' : ''}.` : `${p.name} no cambia cartas.`);
-  advance(g, pid);
+// Cartas de la mesa que ya se ven
+export function visibleBoard(g) {
+  return g.board.slice(0, g.revealed);
 }
 
 function winByFold(g, winner) {
@@ -191,8 +186,9 @@ function winByFold(g, winner) {
 
 export function beginShowdown(g) {
   g.phase = 'showdown';
+  g.revealed = BOARD_SIZE;
   const contenders = g.players.filter(inHand);
-  for (const p of contenders) p.evaluation = evaluateHand(p.hand);
+  for (const p of contenders) p.evaluation = bestHand([...p.hand, ...g.board]);
   contenders.sort((a, b) => compareHands(b.evaluation, a.evaluation));
 
   // Grupos de empatados, de mejor a peor
@@ -288,12 +284,9 @@ export function nextHand(g) {
 
 // Juega los turnos de los bots hasta que le toque al humano o cambie la fase
 export function runBots(g) {
-  while ((g.phase === 'betting1' || g.phase === 'betting2' || g.phase === 'draw') && g.players[g.turn].isBot) {
+  while (g.phase === 'betting' && g.players[g.turn].isBot) {
     const p = g.players[g.turn];
-    if (g.phase === 'draw') {
-      applyDraw(g, p.id, botDiscards(p.hand));
-    } else {
-      applyBetting(g, p.id, botBetAction(evaluateHand(p.hand), legalActions(g, p.id), g.rng));
-    }
+    const evaluation = bestHand([...p.hand, ...visibleBoard(g)]);
+    applyBetting(g, p.id, botBetAction(evaluation, legalActions(g, p.id), g.rng, g.stage));
   }
 }
